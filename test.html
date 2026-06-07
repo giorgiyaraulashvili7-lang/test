@@ -16,10 +16,15 @@ body {
               radial-gradient(ellipse at 80% 70%, rgba(120,0,20,0.28) 0%, transparent 55%),
               radial-gradient(ellipse at 50% 40%, rgba(70,0,10,0.85) 0%, rgba(10,0,2,1) 70%),
               linear-gradient(180deg, #140002 0%, #300006 50%, #0c0001 100%);
-  display: grid;
-  place-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-width: 100vw;
   min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* soft romantic glow behind the book */
@@ -60,12 +65,16 @@ body {
                     radial-gradient(ellipse at 40% 90%, rgba(201,168,76,0.10), transparent 60%),
                     none;
   background-size: 200px;
-  height: 500px;
-  width: 800px;
+  height: auto;
+  width: 90vw;
+  max-width: 800px;
+  aspect-ratio: 800 / 500;
   border-radius: 5px;
   padding: 10px 20px;
+  box-sizing: border-box;
   box-shadow: inset 0 0 15px #344533, 2px 5px 15px #0008;
   isolation: isolate;
+  flex-shrink: 0;
 }
 
 .book::after {
@@ -89,6 +98,7 @@ body {
   width: 50%;
   background: linear-gradient(180deg, #fff7f0 0%, #faf7f2 45%, #f8efe6 100%);
   box-shadow: inset 0 0 0 1px rgba(178,34,34,0.08);
+  overflow: hidden;
 }
 
 .page--left {
@@ -199,6 +209,8 @@ body {
   font-family: "Lusitana", serif;
   font-size: 0.9rem;
   color: #2a0d0f;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .page__text p {
@@ -238,6 +250,7 @@ body {
   width: 100%;
   padding: var(--top) var(--right) var(--bottom) var(--left);
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .page--right .full-size-image {
@@ -317,17 +330,19 @@ body {
 .book-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 16px;
-  margin-top: 18px;
-  width: 800px;
-  max-width: calc(100vw - 40px);
+  margin-top: 30px;
+  width: 90vw;
+  max-width: 800px;
   padding: 12px 16px;
   border-radius: 999px;
   background: rgba(20,0,2,0.55);
   border: 1px solid rgba(178,34,34,0.45);
   box-shadow: 0 10px 40px rgba(0,0,0,0.45), inset 0 0 20px rgba(178,34,34,0.18);
   backdrop-filter: blur(8px);
+  flex-shrink: 0;
 }
 
 .nav-pill {
@@ -364,7 +379,7 @@ body {
 }
 
 /* rose petals falling background */
-body { overflow: hidden; }
+body { overflow-x: hidden; }
 #container { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 .dot {
   width: 35px;
@@ -399,6 +414,165 @@ body { overflow: hidden; }
   clear: both;
 }
 
+/* ======================================================================
+   RESPONSIVE DESIGN
+   ====================================================================== */
+@media (max-width: 1024px) {
+  .book {
+    width: 95vw;
+    max-width: 800px;
+  }
+
+  .book-nav {
+    width: 95vw;
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+
+  .book {
+    width: 100vw;
+    max-width: none;
+    padding: 8px 15px;
+    aspect-ratio: 800 / 600;
+  }
+
+  .book-nav {
+    width: 100vw;
+    max-width: none;
+    margin-top: 25px;
+  }
+
+  .page__text {
+    font-size: 0.8rem;
+  }
+
+  .page__title {
+    font-size: 1rem;
+  }
+
+  .right-poem-text {
+    font-size: 1rem;
+  }
+
+  .right-poem-salute {
+    font-size: 0.9rem;
+  }
+
+  .corner-decoration {
+    height: 80px;
+  }
+
+  .corner-decoration--left-top {
+    top: 40px;
+    left: 60px;
+  }
+
+  .corner-decoration--left-bottom {
+    bottom: 0;
+    left: 60px;
+  }
+
+  .corner-decoration--right-top {
+    top: 40px;
+    right: 0;
+  }
+
+  .corner-decoration--right-bottom {
+    bottom: 0;
+    right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .book {
+    width: 100vw;
+    padding: 5px 10px;
+    aspect-ratio: 800 / 700;
+  }
+
+  .book-nav {
+    width: 100vw;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px 8px;
+  }
+
+  .nav-pill {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
+
+  .nav-indicator {
+    font-size: 0.8rem;
+    order: 3;
+    width: 100%;
+    text-align: center;
+  }
+
+  .page__text {
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+
+  .page--left .page__text {
+    inset: 35px 15px 10px 60px;
+  }
+
+  .page__title {
+    font-size: 0.9rem;
+    margin: 0.3em 0 0.7em 0;
+  }
+
+  .right-poem-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .right-poem-salute {
+    font-size: 0.8rem;
+    margin: 8px 0 0 0;
+  }
+
+  .corner-decoration {
+    height: 60px;
+  }
+
+  .corner-decoration--left-top {
+    top: 25px;
+    left: 40px;
+  }
+
+  .corner-decoration--left-bottom {
+    bottom: 0;
+    left: 40px;
+  }
+
+  .corner-decoration--right-top {
+    top: 25px;
+    right: -5px;
+  }
+
+  .corner-decoration--right-bottom {
+    bottom: 0;
+    right: -5px;
+  }
+
+  .image-credit {
+    bottom: 15px;
+    right: 60px;
+    font-size: 0.65rem;
+  }
+}
+
     </style>
 </head>
 <body>
@@ -427,8 +601,8 @@ body { overflow: hidden; }
                ============================================================ -->
           <div class="page__text">
             <h2 class="page__title">To You, On Your Special Day</h2>
-            <p>There are moments in life that feel like poetry — quiet, beautiful, and impossible to fully put into words. Today is one of them. As you open this, I want you to know that simply knowing you has made my world warmer, brighter, and more alive.</p>
-            <p>Every year that passes only reveals more of who you truly are — and every layer I discover leaves me more in awe of the person you've become. You deserve every wish, every rose, every golden second of this day.</p>
+            <p>There are moments in life that feel like poetry — quiet, beautiful, and impossible to fully put into words. Today is one of them. As you open this, I want you to know that simply[...]
+            <p>Every year that passes only reveals more of who you truly are — and every layer I discover leaves me more in awe of the person you've become. You deserve every wish, every rose, [...]
             <p>So here is a small world I built just for you. Not grand enough to match you — nothing could be — but made entirely with love.</p>
             <p><em>With all my heart, always ❤️</em></p>
           </div>
@@ -484,7 +658,7 @@ body { overflow: hidden; }
                ============================================================ -->
           <div class="page__text">
             <h2 class="page__title">The Moments I Treasure</h2>
-            <p>Some things cannot be measured — only felt. The warmth of a shared silence. The sound of your laughter finding its way into a room before you do. The way time moves differently when you are near: slower, sweeter, more worthy of being noticed.</p>
+            <p>Some things cannot be measured — only felt. The warmth of a shared silence. The sound of your laughter finding its way into a room before you do. The way time moves differently w[...]
             <p>I collect these moments like pressed flowers — each one small and perfect, each one proof that this life is beautiful in ways I could not have imagined before I knew you.</p>
             <p>Today, I return them to you gently. Because the best parts of my days all trace back to you.</p>
             <p><em>Thank you for every one. ❤️</em></p>
@@ -541,8 +715,8 @@ body { overflow: hidden; }
           <div class="page__text">
             <h2 class="page__title">Everything You Are</h2>
             <p>You are the kind of person poems were invented for — not because you are unreachable, but because you make ordinary life feel like something that deserves to be written down.</p>
-            <p>You carry kindness the way others carry keys: automatically, without thinking, always ready to open something for someone. And your eyes — they don't just see the world. They make the world feel seen.</p>
-            <p>There is a steadiness in you, and a warmth, and a quiet wildness that only shows itself at the right moments. All of it is worth celebrating. All of it is beautifully, unmistakably you.</p>
+            <p>You carry kindness the way others carry keys: automatically, without thinking, always ready to open something for someone. And your eyes — they don't just see the world. They mak[...]
+            <p>There is a steadiness in you, and a warmth, and a quiet wildness that only shows itself at the right moments. All of it is worth celebrating. All of it is beautifully, unmistakably[...]
           </div>
           <!-- ======================================= END SPREAD 3 LEFT -->
         </div>
@@ -595,8 +769,8 @@ body { overflow: hidden; }
                ============================================================ -->
           <div class="page__text">
             <h2 class="page__title">For the Year Ahead</h2>
-            <p>Birthdays are strange and wonderful things. They are the universe's way of saying: here is a day entirely yours. A day to be a little more celebrated, a little more held, a little more reminded of how much your presence means.</p>
-            <p>My wish for you is simple, and enormous: may every day this year carry a little of what you deserve — joy that surprises you, peace that holds you, and love that asks nothing but to be received.</p>
+            <p>Birthdays are strange and wonderful things. They are the universe's way of saying: here is a day entirely yours. A day to be a little more celebrated, a little more held, a little [...]
+            <p>My wish for you is simple, and enormous: may every day this year carry a little of what you deserve — joy that surprises you, peace that holds you, and love that asks nothing but[...]
             <p>May you bloom beautifully, my dear. You always do.</p>
             <p><em>With all my love, forever ❤️</em></p>
           </div>
