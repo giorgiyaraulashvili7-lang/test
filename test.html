@@ -16,6 +16,7 @@ body {
               radial-gradient(ellipse at 80% 70%, rgba(120,0,20,0.28) 0%, transparent 55%),
               radial-gradient(ellipse at 50% 40%, rgba(70,0,10,0.85) 0%, rgba(10,0,2,1) 70%),
               linear-gradient(180deg, #140002 0%, #300006 50%, #0c0001 100%);
+  background-attachment: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,7 +69,7 @@ body {
   height: auto;
   width: 90vw;
   max-width: 800px;
-  aspect-ratio: 800 / 500;
+  aspect-ratio: 800 / 550;
   border-radius: 5px;
   padding: 10px 20px;
   box-sizing: border-box;
@@ -209,8 +210,9 @@ body {
   font-family: "Lusitana", serif;
   font-size: 0.9rem;
   color: #2a0d0f;
-  overflow: hidden;
   overflow-y: auto;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .page__text p {
@@ -438,7 +440,7 @@ body { overflow-x: hidden; }
     width: 100vw;
     max-width: none;
     padding: 8px 15px;
-    aspect-ratio: 800 / 600;
+    aspect-ratio: 800 / 700;
   }
 
   .book-nav {
@@ -448,43 +450,50 @@ body { overflow-x: hidden; }
   }
 
   .page__text {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    line-height: 1.35;
   }
 
   .page__title {
-    font-size: 1rem;
+    font-size: 1.05rem;
+    margin: 0.4em 0 0.8em 0;
   }
 
   .right-poem-text {
-    font-size: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.45;
   }
 
   .right-poem-salute {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   .corner-decoration {
-    height: 80px;
+    height: 85px;
   }
 
   .corner-decoration--left-top {
-    top: 40px;
-    left: 60px;
+    top: 45px;
+    left: 70px;
   }
 
   .corner-decoration--left-bottom {
     bottom: 0;
-    left: 60px;
+    left: 70px;
   }
 
   .corner-decoration--right-top {
-    top: 40px;
+    top: 45px;
     right: 0;
   }
 
   .corner-decoration--right-bottom {
     bottom: 0;
     right: 0;
+  }
+
+  .page--left .page__text {
+    inset: 45px 18px 15px 80px;
   }
 }
 
@@ -495,12 +504,14 @@ body { overflow-x: hidden; }
 
   .book {
     width: 100vw;
-    padding: 5px 10px;
-    aspect-ratio: 800 / 700;
+    max-width: none;
+    padding: 6px 12px;
+    aspect-ratio: 800 / 900;
   }
 
   .book-nav {
     width: 100vw;
+    max-width: none;
     gap: 10px;
     margin-top: 20px;
     padding: 10px 8px;
@@ -519,57 +530,101 @@ body { overflow-x: hidden; }
   }
 
   .page__text {
-    font-size: 0.7rem;
-    line-height: 1.2;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .page--left .page__text {
-    inset: 35px 15px 10px 60px;
+    inset: 35px 12px 12px 50px;
   }
 
   .page__title {
-    font-size: 0.9rem;
-    margin: 0.3em 0 0.7em 0;
+    font-size: 0.95rem;
+    margin: 0.3em 0 0.6em 0;
   }
 
   .right-poem-text {
-    font-size: 0.85rem;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    line-height: 1.35;
   }
 
   .right-poem-salute {
-    font-size: 0.8rem;
-    margin: 8px 0 0 0;
+    font-size: 0.85rem;
+    margin: 6px 0 0 0;
   }
 
   .corner-decoration {
-    height: 60px;
+    height: 65px;
   }
 
   .corner-decoration--left-top {
-    top: 25px;
-    left: 40px;
+    top: 30px;
+    left: 30px;
   }
 
   .corner-decoration--left-bottom {
     bottom: 0;
-    left: 40px;
+    left: 30px;
   }
 
   .corner-decoration--right-top {
-    top: 25px;
-    right: -5px;
+    top: 30px;
+    right: -8px;
   }
 
   .corner-decoration--right-bottom {
     bottom: 0;
-    right: -5px;
+    right: -8px;
   }
 
   .image-credit {
-    bottom: 15px;
-    right: 60px;
-    font-size: 0.65rem;
+    bottom: 10px;
+    right: 50px;
+    font-size: 0.6rem;
+  }
+
+  .right-poem {
+    width: 90%;
+  }
+}
+
+@media (max-width: 360px) {
+  .book {
+    aspect-ratio: 800 / 1000;
+    padding: 4px 8px;
+  }
+
+  .page__text {
+    font-size: 0.7rem;
+  }
+
+  .page--left .page__text {
+    inset: 30px 10px 10px 40px;
+  }
+
+  .page__title {
+    font-size: 0.9rem;
+    margin: 0.2em 0 0.5em 0;
+  }
+
+  .corner-decoration {
+    height: 55px;
+  }
+
+  .corner-decoration--left-top {
+    top: 20px;
+    left: 20px;
+  }
+
+  .corner-decoration--left-bottom {
+    left: 20px;
+  }
+
+  .corner-decoration--right-top {
+    top: 20px;
+    right: -10px;
   }
 }
 
@@ -590,9 +645,9 @@ body { overflow-x: hidden; }
         <!-- LEFT PAGE — Spread 1 -->
         <div class="page page--left">
           <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
           <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
 
           <!-- ============================================================
                SPREAD 1 — LEFT PAGE CONTENT
@@ -613,9 +668,9 @@ body { overflow-x: hidden; }
         <div class="page page--right">
           <div class="page__container">
             <img class="corner-decoration corner-decoration--right-top"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
             <img class="corner-decoration corner-decoration--right-bottom"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
 
             <!-- ============================================================
                  SPREAD 1 — RIGHT PAGE CONTENT
@@ -647,9 +702,9 @@ body { overflow-x: hidden; }
         <!-- LEFT PAGE — Spread 2 -->
         <div class="page page--left">
           <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
           <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
 
           <!-- ============================================================
                SPREAD 2 — LEFT PAGE CONTENT
@@ -670,9 +725,9 @@ body { overflow-x: hidden; }
         <div class="page page--right">
           <div class="page__container">
             <img class="corner-decoration corner-decoration--right-top"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
             <img class="corner-decoration corner-decoration--right-bottom"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
 
             <!-- ============================================================
                  SPREAD 2 — RIGHT PAGE CONTENT
@@ -703,9 +758,9 @@ body { overflow-x: hidden; }
         <!-- LEFT PAGE — Spread 3 -->
         <div class="page page--left">
           <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
           <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
 
           <!-- ============================================================
                SPREAD 3 — LEFT PAGE CONTENT
@@ -725,9 +780,9 @@ body { overflow-x: hidden; }
         <div class="page page--right">
           <div class="page__container">
             <img class="corner-decoration corner-decoration--right-top"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
             <img class="corner-decoration corner-decoration--right-bottom"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
 
             <!-- ============================================================
                  SPREAD 3 — RIGHT PAGE CONTENT
@@ -758,9 +813,9 @@ body { overflow-x: hidden; }
         <!-- LEFT PAGE — Spread 4 -->
         <div class="page page--left">
           <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
           <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
 
           <!-- ============================================================
                SPREAD 4 — LEFT PAGE CONTENT
@@ -781,9 +836,9 @@ body { overflow-x: hidden; }
         <div class="page page--right">
           <div class="page__container">
             <img class="corner-decoration corner-decoration--right-top"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
             <img class="corner-decoration corner-decoration--right-bottom"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" />
 
             <!-- ============================================================
                  SPREAD 4 — RIGHT PAGE CONTENT
