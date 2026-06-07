@@ -82,10 +82,11 @@ body {
   background-size: 200px;
   
   /* Responsive sizing: width and aspect ratio adjust by screen size */
-  width: clamp(300px, 90vw, 800px);
+  width: clamp(280px, 90vw, 800px);
   
-  /* Height increases on smaller screens for better mobile readability */
-  height: clamp(600px, 120vw, 500px);
+  /* Height increases on smaller screens for better mobile readability - text stays same size */
+  height: auto;
+  min-height: clamp(400px, 120vh, 600px);
   
   border-radius: 5px;
   padding: clamp(8px, 2vw, 10px) clamp(12px, 2.5vw, 20px);
@@ -223,19 +224,19 @@ body {
 .page__text {
   position: absolute;
   font-family: "Lusitana", serif;
-  font-size: clamp(0.65rem, 1.5vw, 0.9rem);
+  font-size: 0.9rem;
   color: #2a0d0f;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   max-height: 100%;
+  line-height: 1.4;
 }
 
 .page__text p {
   position: relative;
   margin: 0;
   text-indent: 1.5em;
-  line-height: 1.4;
 }
 
 .page__text p::first-letter {
@@ -246,7 +247,7 @@ body {
 
 .page__title {
   position: relative;
-  font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+  font-size: 1.1rem;
   text-align: center;
   margin: 0.5em 0 0.8em 0;
   z-index: 20;
@@ -305,7 +306,7 @@ body {
   bottom: clamp(10px, 2vw, 20px);
   right: clamp(35px, 6vw, 80px);
   font-family: sans-serif;
-  font-size: clamp(0.55rem, 1vw, 0.8rem);
+  font-size: 0.8rem;
   font-weight: bold;
   color: #eeee;
 }
@@ -325,7 +326,7 @@ body {
 .right-poem-text {
   margin: 0;
   font-family: "Baskervville", "Times New Roman", serif;
-  font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+  font-size: 1.2rem;
   line-height: 1.5;
   color: rgba(80,10,20,0.92);
   text-shadow: 0 2px 10px rgba(255,255,255,0.45);
@@ -334,7 +335,7 @@ body {
 .right-poem-salute {
   margin: clamp(8px, 1.5vw, 14px) 0 0 0;
   font-family: "Baskervville", "Times New Roman", serif;
-  font-size: clamp(0.75rem, 1.2vw, 1.02rem);
+  font-size: 1.02rem;
   line-height: 1.5;
   font-style: italic;
   color: #8b1a2a;
@@ -366,7 +367,7 @@ body {
   border-radius: 999px;
   cursor: pointer;
   font-family: "Lusitana", serif;
-  font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+  font-size: 0.85rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   box-shadow: 0 6px 22px rgba(139,0,0,0.35);
@@ -389,7 +390,7 @@ body {
 .nav-indicator {
   color: rgba(240,208,96,0.85);
   font-family: "Lusitana", serif;
-  font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+  font-size: 0.9rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -435,50 +436,6 @@ body { overflow: hidden; }
 @media (min-width: 1024px) {
   .book {
     height: clamp(400px, 60vw, 500px);
-  }
-}
-
-/* Media query for very small screens */
-@media (max-width: 600px) {
-  body {
-    padding: 15px;
-    gap: 15px;
-  }
-  
-  .book {
-    width: 95vw;
-    height: auto;
-    min-height: 650px;
-  }
-  
-  .book-nav {
-    width: 95vw;
-  }
-  
-  .page__text {
-    font-size: clamp(0.6rem, 2vw, 0.75rem);
-  }
-}
-
-@media (max-width: 480px) {
-  .book {
-    width: 95vw;
-    height: auto;
-    min-height: 700px;
-  }
-  
-  .page__text {
-    font-size: clamp(0.6rem, 2.5vw, 0.75rem);
-  }
-  
-  .page__title {
-    font-size: clamp(0.75rem, 2.2vw, 1rem);
-    margin: 0.4em 0 0.6em 0;
-  }
-  
-  .nav-pill {
-    padding: 6px clamp(10px, 2vw, 14px);
-    font-size: clamp(0.6rem, 1.5vw, 0.75rem);
   }
 }
 
