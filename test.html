@@ -8,18 +8,37 @@
         @import url("https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Lusitana:wght@400;700&display=swap");
 
 /* ======================================================================
-   BASE STYLES  (original — do not modify)
+   BASE STYLES  (responsive version)
    ====================================================================== */
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   background: radial-gradient(ellipse at 20% 20%, rgba(255,90,120,0.18) 0%, transparent 55%),
               radial-gradient(ellipse at 80% 70%, rgba(120,0,20,0.28) 0%, transparent 55%),
               radial-gradient(ellipse at 50% 40%, rgba(70,0,10,0.85) 0%, rgba(10,0,2,1) 70%),
               linear-gradient(180deg, #140002 0%, #300006 50%, #0c0001 100%);
-  display: grid;
-  place-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-width: 100vw;
   min-height: 100vh;
+  padding: 20px;
+  gap: 20px;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Responsive book container */
+.book-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 /* soft romantic glow behind the book */
@@ -60,12 +79,17 @@ body {
                     radial-gradient(ellipse at 40% 90%, rgba(201,168,76,0.10), transparent 60%),
                     none;
   background-size: 200px;
-  height: 500px;
-  width: 800px;
+  
+  /* Responsive sizing: scales with viewport */
+  height: clamp(350px, 60vw, 500px);
+  width: clamp(500px, 100vw - 40px, 800px);
+  aspect-ratio: 800 / 500;
+  
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: clamp(8px, 2vw, 10px) clamp(12px, 2.5vw, 20px);
   box-shadow: inset 0 0 15px #344533, 2px 5px 15px #0008;
   isolation: isolate;
+  flex-shrink: 0;
 }
 
 .book::after {
@@ -155,7 +179,7 @@ body {
 
 .corner-decoration {
   position: absolute;
-  height: 100px;
+  height: clamp(60px, 10vw, 100px);
   aspect-ratio: 1/1;
   z-index: 5;
   /* force the corner images to read as darker romantic red */
@@ -164,20 +188,20 @@ body {
 }
 
 .corner-decoration--left-top {
-  top: 55px;
-  left: 90px;
+  top: clamp(40px, 5vw, 55px);
+  left: clamp(60px, 8vw, 90px);
   transform: matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .corner-decoration--left-bottom {
   bottom: -5px;
-  left: 90px;
+  left: clamp(60px, 8vw, 90px);
   transform: rotate(-90deg)
     matrix3d(1, 0, 0, 0, 0, 1, 0, -0.001, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .corner-decoration--right-top {
-  top: 55px;
+  top: clamp(40px, 5vw, 55px);
   right: -11px;
   transform: rotate(90deg)
     matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
@@ -191,14 +215,15 @@ body {
 }
 
 .page--left .page__text {
-  inset: 50px 20px 10px 100px;
+  inset: clamp(30px, 4vw, 50px) clamp(12px, 2vw, 20px) clamp(8px, 1.5vw, 10px) clamp(60px, 10vw, 100px);
 }
 
 .page__text {
   position: absolute;
   font-family: "Lusitana", serif;
-  font-size: 0.9rem;
+  font-size: clamp(0.7rem, 1.2vw, 0.9rem);
   color: #2a0d0f;
+  overflow: hidden;
 }
 
 .page__text p {
@@ -213,7 +238,7 @@ body {
 
 .page__title {
   position: relative;
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
   text-align: center;
   margin: 0.5em 0 1em 0;
   z-index: 20;
@@ -229,9 +254,9 @@ body {
 
 .page--right .page__container {
   --top: 0px;
-  --right: 65px;
-  --bottom: 10px;
-  --left: 25px;
+  --right: clamp(40px, 6vw, 65px);
+  --bottom: clamp(8px, 1.5vw, 10px);
+  --left: clamp(15px, 2.5vw, 25px);
 
   position: relative;
   height: 100%;
@@ -275,10 +300,10 @@ body {
 .image-credit {
   position: absolute;
   z-index: 30;
-  bottom: 20px;
-  right: 80px;
+  bottom: clamp(12px, 2vw, 20px);
+  right: clamp(50px, 8vw, 80px);
   font-family: sans-serif;
-  font-size: 0.8rem;
+  font-size: clamp(0.6rem, 0.9vw, 0.8rem);
   font-weight: bold;
   color: #eeee;
 }
@@ -298,16 +323,16 @@ body {
 .right-poem-text {
   margin: 0;
   font-family: "Baskervville", "Times New Roman", serif;
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 1.3vw, 1.2rem);
   line-height: 1.55;
   color: rgba(80,10,20,0.92);
   text-shadow: 0 2px 10px rgba(255,255,255,0.45);
 }
 
 .right-poem-salute {
-  margin: 14px 0 0 0;
+  margin: clamp(10px, 1.5vw, 14px) 0 0 0;
   font-family: "Baskervville", "Times New Roman", serif;
-  font-size: 1.02rem;
+  font-size: clamp(0.8rem, 1.1vw, 1.02rem);
   line-height: 1.55;
   font-style: italic;
   color: #8b1a2a;
@@ -317,37 +342,41 @@ body {
 .book-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 18px;
-  width: 800px;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 16px);
+  flex-wrap: wrap;
+  width: clamp(300px, 100vw - 40px, 800px);
   max-width: calc(100vw - 40px);
-  padding: 12px 16px;
+  padding: clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px);
   border-radius: 999px;
   background: rgba(20,0,2,0.55);
   border: 1px solid rgba(178,34,34,0.45);
   box-shadow: 0 10px 40px rgba(0,0,0,0.45), inset 0 0 20px rgba(178,34,34,0.18);
   backdrop-filter: blur(8px);
+  flex-shrink: 0;
 }
 
 .nav-pill {
   border: 1px solid rgba(212,175,55,0.45);
   color: #f0d060;
   background: linear-gradient(135deg, rgba(139,0,0,0.9), rgba(178,34,34,0.9));
-  padding: 10px 18px;
+  padding: clamp(8px, 1.5vw, 10px) clamp(14px, 2.5vw, 18px);
   border-radius: 999px;
   cursor: pointer;
   font-family: "Lusitana", serif;
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   box-shadow: 0 6px 22px rgba(139,0,0,0.35);
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
 }
+
 .nav-pill:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 10px 28px rgba(139,0,0,0.5);
 }
+
 .nav-pill:disabled {
   opacity: 0.35;
   cursor: default;
@@ -358,9 +387,10 @@ body {
 .nav-indicator {
   color: rgba(240,208,96,0.85);
   font-family: "Lusitana", serif;
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 1vw, 0.9rem);
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* rose petals falling background */
@@ -375,7 +405,7 @@ body { overflow: hidden; }
 }
 
 /* ======================================================================
-   SPREAD SYSTEM  (new)
+   SPREAD SYSTEM  (responsive)
 
    Each .spread wraps one left page + one right page.
    Only one .spread is visible at a time; the rest are display:none.
@@ -399,6 +429,39 @@ body { overflow: hidden; }
   clear: both;
 }
 
+/* Media query for very small screens */
+@media (max-width: 600px) {
+  body {
+    padding: 15px;
+    gap: 15px;
+  }
+  
+  .book {
+    width: clamp(320px, 95vw, 500px);
+    height: clamp(280px, 60vw, 400px);
+  }
+  
+  .book-nav {
+    width: clamp(280px, 95vw, 500px);
+  }
+}
+
+@media (max-width: 480px) {
+  .book {
+    width: 95vw;
+    height: 60vw;
+  }
+  
+  .page__text {
+    font-size: clamp(0.65rem, 2vw, 0.8rem);
+  }
+  
+  .nav-pill {
+    padding: 6px clamp(10px, 2vw, 14px);
+    font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+  }
+}
+
     </style>
 </head>
 <body>
@@ -406,233 +469,235 @@ body { overflow: hidden; }
     <!-- Rose petals falling background -->
     <div id="container" aria-hidden="true"></div>
 
-    <div class="book">
+    <div class="book-wrapper">
+      <div class="book">
 
-      <!-- ================================================================
-           SPREAD 1 — Pages 1 & 2  (original, do not remove)
-           ================================================================ -->
-      <div class="spread" id="spread-1">
+        <!-- ================================================================
+             SPREAD 1 — Pages 1 & 2  (original, do not remove)
+             ================================================================ -->
+        <div class="spread" id="spread-1">
 
-        <!-- LEFT PAGE — Spread 1 -->
-        <div class="page page--left">
-          <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-          <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-
-          <!-- ============================================================
-               SPREAD 1 — LEFT PAGE CONTENT
-               Edit the title and paragraphs below.
-               Do not modify anything outside these markers.
-               ============================================================ -->
-          <div class="page__text">
-            <h2 class="page__title">To You, On Your Special Day</h2>
-            <p>There are moments in life that feel like poetry — quiet, beautiful, and impossible to fully put into words. Today is one of them. As you open this, I want you to know that simply knowing you has made my world warmer, brighter, and more alive.</p>
-            <p>Every year that passes only reveals more of who you truly are — and every layer I discover leaves me more in awe of the person you've become. You deserve every wish, every rose, every golden second of this day.</p>
-            <p>So here is a small world I built just for you. Not grand enough to match you — nothing could be — but made entirely with love.</p>
-            <p><em>With all my heart, always ❤️</em></p>
-          </div>
-          <!-- ======================================= END SPREAD 1 LEFT -->
-        </div>
-
-        <!-- RIGHT PAGE — Spread 1 -->
-        <div class="page page--right">
-          <div class="page__container">
-            <img class="corner-decoration corner-decoration--right-top"
+          <!-- LEFT PAGE — Spread 1 -->
+          <div class="page page--left">
+            <img class="corner-decoration corner-decoration--left-top"
                  src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-            <img class="corner-decoration corner-decoration--right-bottom"
+            <img class="corner-decoration corner-decoration--left-bottom"
                  src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
 
             <!-- ============================================================
-                 SPREAD 1 — RIGHT PAGE CONTENT
-                 Edit the poem lines and the salute below.
+                 SPREAD 1 — LEFT PAGE CONTENT
+                 Edit the title and paragraphs below.
                  Do not modify anything outside these markers.
                  ============================================================ -->
-            <div class="right-poem" aria-label="Right side poem">
-              <p class="right-poem-text">May your day be<br>
-                as beautiful as you are,<br>
-                as warm as your smile,<br>
-                as bright as your eyes,<br>
-                and as unforgettable<br>
-                as you are to me.</p>
-              <p class="right-poem-salute">Happy Birthday,<br>
-                Princess. 🌹</p>
+            <div class="page__text">
+              <h2 class="page__title">To You, On Your Special Day</h2>
+              <p>There are moments in life that feel like poetry — quiet, beautiful, and impossible to fully put into words. Today is one of them. As you open this, I want you to know that simply[...]
+              <p>Every year that passes only reveals more of who you truly are — and every layer I discover leaves me more in awe of the person you've become. You deserve every wish, every rose, [...]
+              <p>So here is a small world I built just for you. Not grand enough to match you — nothing could be — but made entirely with love.</p>
+              <p><em>With all my heart, always ❤️</em></p>
             </div>
-            <!-- ====================================== END SPREAD 1 RIGHT -->
+            <!-- ======================================= END SPREAD 1 LEFT -->
           </div>
-        </div>
 
-      </div><!-- /spread-1 -->
+          <!-- RIGHT PAGE — Spread 1 -->
+          <div class="page page--right">
+            <div class="page__container">
+              <img class="corner-decoration corner-decoration--right-top"
+                   src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+              <img class="corner-decoration corner-decoration--right-bottom"
+                   src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
 
-
-      <!-- ================================================================
-           SPREAD 2 — Pages 3 & 4
-           ================================================================ -->
-      <div class="spread" id="spread-2" style="display:none; opacity:0;">
-
-        <!-- LEFT PAGE — Spread 2 -->
-        <div class="page page--left">
-          <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-          <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-
-          <!-- ============================================================
-               SPREAD 2 — LEFT PAGE CONTENT
-               Edit the title and paragraphs below.
-               Do not modify anything outside these markers.
-               ============================================================ -->
-          <div class="page__text">
-            <h2 class="page__title">The Moments I Treasure</h2>
-            <p>Some things cannot be measured — only felt. The warmth of a shared silence. The sound of your laughter finding its way into a room before you do. The way time moves differently when you are near: slower, sweeter, more worthy of being noticed.</p>
-            <p>I collect these moments like pressed flowers — each one small and perfect, each one proof that this life is beautiful in ways I could not have imagined before I knew you.</p>
-            <p>Today, I return them to you gently. Because the best parts of my days all trace back to you.</p>
-            <p><em>Thank you for every one. ❤️</em></p>
+              <!-- ============================================================
+                   SPREAD 1 — RIGHT PAGE CONTENT
+                   Edit the poem lines and the salute below.
+                   Do not modify anything outside these markers.
+                   ============================================================ -->
+              <div class="right-poem" aria-label="Right side poem">
+                <p class="right-poem-text">May your day be<br>
+                  as beautiful as you are,<br>
+                  as warm as your smile,<br>
+                  as bright as your eyes,<br>
+                  and as unforgettable<br>
+                  as you are to me.</p>
+                <p class="right-poem-salute">Happy Birthday,<br>
+                  Princess. 🌹</p>
+              </div>
+              <!-- ====================================== END SPREAD 1 RIGHT -->
+            </div>
           </div>
-          <!-- ======================================= END SPREAD 2 LEFT -->
-        </div>
 
-        <!-- RIGHT PAGE — Spread 2 -->
-        <div class="page page--right">
-          <div class="page__container">
-            <img class="corner-decoration corner-decoration--right-top"
+        </div><!-- /spread-1 -->
+
+
+        <!-- ================================================================
+             SPREAD 2 — Pages 3 & 4
+             ================================================================ -->
+        <div class="spread" id="spread-2" style="display:none; opacity:0;">
+
+          <!-- LEFT PAGE — Spread 2 -->
+          <div class="page page--left">
+            <img class="corner-decoration corner-decoration--left-top"
                  src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-            <img class="corner-decoration corner-decoration--right-bottom"
+            <img class="corner-decoration corner-decoration--left-bottom"
                  src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
 
             <!-- ============================================================
-                 SPREAD 2 — RIGHT PAGE CONTENT
-                 Edit the poem lines and the salute below.
+                 SPREAD 2 — LEFT PAGE CONTENT
+                 Edit the title and paragraphs below.
                  Do not modify anything outside these markers.
                  ============================================================ -->
-            <div class="right-poem" aria-label="Right side poem">
-              <p class="right-poem-text">In the quiet in-between<br>
-                moments, I find<br>
-                the clearest proof of love —<br>
-                not in grand gestures,<br>
-                but in the soft, ordinary grace<br>
-                of knowing you are near.</p>
-              <p class="right-poem-salute">Always yours. 🌹</p>
+            <div class="page__text">
+              <h2 class="page__title">The Moments I Treasure</h2>
+              <p>Some things cannot be measured — only felt. The warmth of a shared silence. The sound of your laughter finding its way into a room before you do. The way time moves differently w[...]
+              <p>I collect these moments like pressed flowers — each one small and perfect, each one proof that this life is beautiful in ways I could not have imagined before I knew you.</p>
+              <p>Today, I return them to you gently. Because the best parts of my days all trace back to you.</p>
+              <p><em>Thank you for every one. ❤️</em></p>
             </div>
-            <!-- ====================================== END SPREAD 2 RIGHT -->
+            <!-- ======================================= END SPREAD 2 LEFT -->
           </div>
-        </div>
 
-      </div><!-- /spread-2 -->
+          <!-- RIGHT PAGE — Spread 2 -->
+          <div class="page page--right">
+            <div class="page__container">
+              <img class="corner-decoration corner-decoration--right-top"
+                   src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+              <img class="corner-decoration corner-decoration--right-bottom"
+                   src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
 
-
-      <!-- ================================================================
-           SPREAD 3 — Pages 5 & 6
-           ================================================================ -->
-      <div class="spread" id="spread-3" style="display:none; opacity:0;">
-
-        <!-- LEFT PAGE — Spread 3 -->
-        <div class="page page--left">
-          <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-          <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-
-          <!-- ============================================================
-               SPREAD 3 — LEFT PAGE CONTENT
-               Edit the title and paragraphs below.
-               Do not modify anything outside these markers.
-               ============================================================ -->
-          <div class="page__text">
-            <h2 class="page__title">Everything You Are</h2>
-            <p>You are the kind of person poems were invented for — not because you are unreachable, but because you make ordinary life feel like something that deserves to be written down.</p>
-            <p>You carry kindness the way others carry keys: automatically, without thinking, always ready to open something for someone. And your eyes — they don't just see the world. They make the world feel seen.</p>
-            <p>There is a steadiness in you, and a warmth, and a quiet wildness that only shows itself at the right moments. All of it is worth celebrating. All of it is beautifully, unmistakably you.</p>
+              <!-- ============================================================
+                   SPREAD 2 — RIGHT PAGE CONTENT
+                   Edit the poem lines and the salute below.
+                   Do not modify anything outside these markers.
+                   ============================================================ -->
+              <div class="right-poem" aria-label="Right side poem">
+                <p class="right-poem-text">In the quiet in-between<br>
+                  moments, I find<br>
+                  the clearest proof of love —<br>
+                  not in grand gestures,<br>
+                  but in the soft, ordinary grace<br>
+                  of knowing you are near.</p>
+                <p class="right-poem-salute">Always yours. 🌹</p>
+              </div>
+              <!-- ====================================== END SPREAD 2 RIGHT -->
+            </div>
           </div>
-          <!-- ======================================= END SPREAD 3 LEFT -->
-        </div>
 
-        <!-- RIGHT PAGE — Spread 3 -->
-        <div class="page page--right">
-          <div class="page__container">
-            <img class="corner-decoration corner-decoration--right-top"
+        </div><!-- /spread-2 -->
+
+
+        <!-- ================================================================
+             SPREAD 3 — Pages 5 & 6
+             ================================================================ -->
+        <div class="spread" id="spread-3" style="display:none; opacity:0;">
+
+          <!-- LEFT PAGE — Spread 3 -->
+          <div class="page page--left">
+            <img class="corner-decoration corner-decoration--left-top"
                  src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-            <img class="corner-decoration corner-decoration--right-bottom"
+            <img class="corner-decoration corner-decoration--left-bottom"
                  src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
 
             <!-- ============================================================
-                 SPREAD 3 — RIGHT PAGE CONTENT
-                 Edit the poem lines and the salute below.
+                 SPREAD 3 — LEFT PAGE CONTENT
+                 Edit the title and paragraphs below.
                  Do not modify anything outside these markers.
                  ============================================================ -->
-            <div class="right-poem" aria-label="Right side poem">
-              <p class="right-poem-text">You are the soft morning light<br>
-                before the world grows loud,<br>
-                the laughter at the end<br>
-                of a long day,<br>
-                the reason a room feels warmer<br>
-                the moment you walk in.</p>
-              <p class="right-poem-salute">With love beyond measure. ❤️</p>
+            <div class="page__text">
+              <h2 class="page__title">Everything You Are</h2>
+              <p>You are the kind of person poems were invented for — not because you are unreachable, but because you make ordinary life feel like something that deserves to be written down.</p>
+              <p>You carry kindness the way others carry keys: automatically, without thinking, always ready to open something for someone. And your eyes — they don't just see the world. They mak[...]
+              <p>There is a steadiness in you, and a warmth, and a quiet wildness that only shows itself at the right moments. All of it is worth celebrating. All of it is beautifully, unmistakably[...]
             </div>
-            <!-- ====================================== END SPREAD 3 RIGHT -->
+            <!-- ======================================= END SPREAD 3 LEFT -->
           </div>
-        </div>
 
-      </div><!-- /spread-3 -->
+          <!-- RIGHT PAGE — Spread 3 -->
+          <div class="page page--right">
+            <div class="page__container">
+              <img class="corner-decoration corner-decoration--right-top"
+                   src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+              <img class="corner-decoration corner-decoration--right-bottom"
+                   src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
 
-
-      <!-- ================================================================
-           SPREAD 4 — Pages 7 & 8
-           ================================================================ -->
-      <div class="spread" id="spread-4" style="display:none; opacity:0;">
-
-        <!-- LEFT PAGE — Spread 4 -->
-        <div class="page page--left">
-          <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-          <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-
-          <!-- ============================================================
-               SPREAD 4 — LEFT PAGE CONTENT
-               Edit the title and paragraphs below.
-               Do not modify anything outside these markers.
-               ============================================================ -->
-          <div class="page__text">
-            <h2 class="page__title">For the Year Ahead</h2>
-            <p>Birthdays are strange and wonderful things. They are the universe's way of saying: here is a day entirely yours. A day to be a little more celebrated, a little more held, a little more reminded of how much your presence means.</p>
-            <p>My wish for you is simple, and enormous: may every day this year carry a little of what you deserve — joy that surprises you, peace that holds you, and love that asks nothing but to be received.</p>
-            <p>May you bloom beautifully, my dear. You always do.</p>
-            <p><em>With all my love, forever ❤️</em></p>
+              <!-- ============================================================
+                   SPREAD 3 — RIGHT PAGE CONTENT
+                   Edit the poem lines and the salute below.
+                   Do not modify anything outside these markers.
+                   ============================================================ -->
+              <div class="right-poem" aria-label="Right side poem">
+                <p class="right-poem-text">You are the soft morning light<br>
+                  before the world grows loud,<br>
+                  the laughter at the end<br>
+                  of a long day,<br>
+                  the reason a room feels warmer<br>
+                  the moment you walk in.</p>
+                <p class="right-poem-salute">With love beyond measure. ❤️</p>
+              </div>
+              <!-- ====================================== END SPREAD 3 RIGHT -->
+            </div>
           </div>
-          <!-- ======================================= END SPREAD 4 LEFT -->
-        </div>
 
-        <!-- RIGHT PAGE — Spread 4 -->
-        <div class="page page--right">
-          <div class="page__container">
-            <img class="corner-decoration corner-decoration--right-top"
+        </div><!-- /spread-3 -->
+
+
+        <!-- ================================================================
+             SPREAD 4 — Pages 7 & 8
+             ================================================================ -->
+        <div class="spread" id="spread-4" style="display:none; opacity:0;">
+
+          <!-- LEFT PAGE — Spread 4 -->
+          <div class="page page--left">
+            <img class="corner-decoration corner-decoration--left-top"
                  src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
-            <img class="corner-decoration corner-decoration--right-bottom"
+            <img class="corner-decoration corner-decoration--left-bottom"
                  src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
 
             <!-- ============================================================
-                 SPREAD 4 — RIGHT PAGE CONTENT
-                 Edit the poem lines and the salute below.
+                 SPREAD 4 — LEFT PAGE CONTENT
+                 Edit the title and paragraphs below.
                  Do not modify anything outside these markers.
                  ============================================================ -->
-            <div class="right-poem" aria-label="Right side poem">
-              <p class="right-poem-text">This book ends here,<br>
-                but the story doesn't.<br>
-                Every page ahead of you<br>
-                is still blank, still waiting —<br>
-                and I cannot wait<br>
-                to read it alongside you.</p>
-              <p class="right-poem-salute">Happy Birthday,<br>
-                my love. 🌹</p>
+            <div class="page__text">
+              <h2 class="page__title">For the Year Ahead</h2>
+              <p>Birthdays are strange and wonderful things. They are the universe's way of saying: here is a day entirely yours. A day to be a little more celebrated, a little more held, a little [...]
+              <p>My wish for you is simple, and enormous: may every day this year carry a little of what you deserve — joy that surprises you, peace that holds you, and love that asks nothing but[...]
+              <p>May you bloom beautifully, my dear. You always do.</p>
+              <p><em>With all my love, forever ❤️</em></p>
             </div>
-            <!-- ====================================== END SPREAD 4 RIGHT -->
+            <!-- ======================================= END SPREAD 4 LEFT -->
           </div>
-        </div>
 
-      </div><!-- /spread-4 -->
+          <!-- RIGHT PAGE — Spread 4 -->
+          <div class="page page--right">
+            <div class="page__container">
+              <img class="corner-decoration corner-decoration--right-top"
+                   src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+              <img class="corner-decoration corner-decoration--right-bottom"
+                   src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
 
-    </div><!-- /book -->
+              <!-- ============================================================
+                   SPREAD 4 — RIGHT PAGE CONTENT
+                   Edit the poem lines and the salute below.
+                   Do not modify anything outside these markers.
+                   ============================================================ -->
+              <div class="right-poem" aria-label="Right side poem">
+                <p class="right-poem-text">This book ends here,<br>
+                  but the story doesn't.<br>
+                  Every page ahead of you<br>
+                  is still blank, still waiting —<br>
+                  and I cannot wait<br>
+                  to read it alongside you.</p>
+                <p class="right-poem-salute">Happy Birthday,<br>
+                  my love. 🌹</p>
+              </div>
+              <!-- ====================================== END SPREAD 4 RIGHT -->
+            </div>
+          </div>
+
+        </div><!-- /spread-4 -->
+
+      </div><!-- /book -->
+    </div><!-- /book-wrapper -->
 
     <!-- Navigation bar under the book -->
     <div class="book-nav" aria-label="Page navigation">
