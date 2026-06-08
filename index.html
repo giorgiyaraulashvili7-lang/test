@@ -8,18 +8,44 @@
         @import url("https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Lusitana:wght@400;700&display=swap");
 
 /* ======================================================================
-   BASE STYLES  (original — do not modify)
+   BASE STYLES  (responsive)
    ====================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   background: radial-gradient(ellipse at 20% 20%, rgba(255,90,120,0.18) 0%, transparent 55%),
               radial-gradient(ellipse at 80% 70%, rgba(120,0,20,0.28) 0%, transparent 55%),
               radial-gradient(ellipse at 50% 40%, rgba(70,0,10,0.85) 0%, rgba(10,0,2,1) 70%),
               linear-gradient(180deg, #140002 0%, #300006 50%, #0c0001 100%);
-  display: grid;
-  place-content: center;
-  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
+  min-width: 100vw;
+  overflow-x: hidden;
+  padding: clamp(8px, 2vw, 20px);
+}
+
+/* Main container for book + nav */
+.book-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 24px);
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* soft romantic glow behind the book */
@@ -60,27 +86,15 @@ body {
                     radial-gradient(ellipse at 40% 90%, rgba(201,168,76,0.10), transparent 60%),
                     none;
   background-size: 200px;
-  height: 500px;
-  width: 800px;
+  
+  /* Responsive sizing using clamp */
+  width: clamp(300px, 90vw, 850px);
+  aspect-ratio: 16 / 10;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: clamp(8px, 2vw, 20px);
   box-shadow: inset 0 0 15px #344533, 2px 5px 15px #0008;
   isolation: isolate;
-}
-
-.book::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url(https://i.pinimg.com/originals/08/60/25/086025d62f7d1794a815e0e7042cae2d.png);
-  background-size: 100%;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  filter: invert(1) opacity(0.2) blur(1px);
-  border-radius: 5px;
-  height: 100%;
-  width: 100%;
-  z-index: -2;
+  flex-shrink: 0;
 }
 
 .page {
@@ -155,7 +169,7 @@ body {
 
 .corner-decoration {
   position: absolute;
-  height: 100px;
+  height: clamp(60px, 8vw, 100px);
   aspect-ratio: 1/1;
   z-index: 5;
   /* force the corner images to read as darker romantic red */
@@ -164,41 +178,42 @@ body {
 }
 
 .corner-decoration--left-top {
-  top: 55px;
-  left: 90px;
+  top: clamp(30px, 5vw, 55px);
+  left: clamp(40px, 8vw, 90px);
   transform: matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .corner-decoration--left-bottom {
-  bottom: -5px;
-  left: 90px;
+  bottom: clamp(-10px, -2vw, -5px);
+  left: clamp(40px, 8vw, 90px);
   transform: rotate(-90deg)
     matrix3d(1, 0, 0, 0, 0, 1, 0, -0.001, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .corner-decoration--right-top {
-  top: 55px;
-  right: -11px;
+  top: clamp(30px, 5vw, 55px);
+  right: clamp(-20px, -2vw, -11px);
   transform: rotate(90deg)
     matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .corner-decoration--right-bottom {
-  bottom: -5px;
-  right: -11px;
+  bottom: clamp(-10px, -2vw, -5px);
+  right: clamp(-20px, -2vw, -11px);
   transform: rotate(180deg)
     matrix3d(1, 0, 0, 0, 0, 1, 0, -0.001, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .page--left .page__text {
-  inset: 50px 20px 10px 100px;
+  inset: clamp(30px, 5vw, 50px) clamp(12px, 2vw, 20px) clamp(8px, 1.5vw, 10px) clamp(50px, 10vw, 100px);
 }
 
 .page__text {
   position: absolute;
   font-family: "Lusitana", serif;
-  font-size: 0.9rem;
+  font-size: clamp(0.7rem, 1.8vw, 0.95rem);
   color: #2a0d0f;
+  overflow: hidden;
 }
 
 .page__text p {
@@ -213,7 +228,7 @@ body {
 
 .page__title {
   position: relative;
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 2.2vw, 1.15rem);
   text-align: center;
   margin: 0.5em 0 1em 0;
   z-index: 20;
@@ -224,14 +239,14 @@ body {
 .page__text p {
   margin: 0;
   text-indent: 1.5em;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .page--right .page__container {
   --top: 0px;
-  --right: 65px;
-  --bottom: 10px;
-  --left: 25px;
+  --right: clamp(30px, 6vw, 65px);
+  --bottom: clamp(8px, 1.5vw, 10px);
+  --left: clamp(15px, 3vw, 25px);
 
   position: relative;
   height: 100%;
@@ -275,10 +290,10 @@ body {
 .image-credit {
   position: absolute;
   z-index: 30;
-  bottom: 20px;
-  right: 80px;
+  bottom: clamp(12px, 2vw, 20px);
+  right: clamp(40px, 8vw, 80px);
   font-family: sans-serif;
-  font-size: 0.8rem;
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
   font-weight: bold;
   color: #eeee;
 }
@@ -290,7 +305,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 85%;
+  width: clamp(75%, 85%, 90%);
   text-align: center;
   pointer-events: none;
 }
@@ -298,16 +313,16 @@ body {
 .right-poem-text {
   margin: 0;
   font-family: "Baskervville", "Times New Roman", serif;
-  font-size: 1.2rem;
-  line-height: 1.55;
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  line-height: 1.6;
   color: rgba(80,10,20,0.92);
   text-shadow: 0 2px 10px rgba(255,255,255,0.45);
 }
 
 .right-poem-salute {
-  margin: 14px 0 0 0;
+  margin: clamp(10px, 1.5vw, 14px) 0 0 0;
   font-family: "Baskervville", "Times New Roman", serif;
-  font-size: 1.02rem;
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
   line-height: 1.55;
   font-style: italic;
   color: #8b1a2a;
@@ -317,37 +332,42 @@ body {
 .book-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 18px;
-  width: 800px;
-  max-width: calc(100vw - 40px);
-  padding: 12px 16px;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 20px);
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: clamp(280px, 90vw, 870px);
+  padding: clamp(10px, 2vw, 14px) clamp(12px, 2.5vw, 18px);
   border-radius: 999px;
   background: rgba(20,0,2,0.55);
   border: 1px solid rgba(178,34,34,0.45);
   box-shadow: 0 10px 40px rgba(0,0,0,0.45), inset 0 0 20px rgba(178,34,34,0.18);
   backdrop-filter: blur(8px);
+  margin-top: 0;
+  flex-shrink: 0;
 }
 
 .nav-pill {
   border: 1px solid rgba(212,175,55,0.45);
   color: #f0d060;
   background: linear-gradient(135deg, rgba(139,0,0,0.9), rgba(178,34,34,0.9));
-  padding: 10px 18px;
+  padding: clamp(8px, 1.5vw, 10px) clamp(14px, 2.5vw, 18px);
   border-radius: 999px;
   cursor: pointer;
   font-family: "Lusitana", serif;
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 1.8vw, 0.88rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   box-shadow: 0 6px 22px rgba(139,0,0,0.35);
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
 }
+
 .nav-pill:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 10px 28px rgba(139,0,0,0.5);
 }
+
 .nav-pill:disabled {
   opacity: 0.35;
   cursor: default;
@@ -358,24 +378,34 @@ body {
 .nav-indicator {
   color: rgba(240,208,96,0.85);
   font-family: "Lusitana", serif;
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 1.8vw, 0.95rem);
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* rose petals falling background */
 body { overflow: hidden; }
-#container { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+#container { 
+  position: fixed; 
+  inset: 0; 
+  z-index: -1; 
+  pointer-events: none; 
+  overflow: hidden; 
+  width: 100vw;
+  height: 100vh;
+}
+
 .dot {
-  width: 35px;
-  height: 35px;
+  width: clamp(20px, 4vw, 35px);
+  height: clamp(20px, 4vw, 35px);
   position: absolute;
   background: url(https://image.ibb.co/kyUHab/rose.png);
   background-size: 100% 100%;
 }
 
 /* ======================================================================
-   SPREAD SYSTEM  (new)
+   SPREAD SYSTEM  (unchanged)
 
    Each .spread wraps one left page + one right page.
    Only one .spread is visible at a time; the rest are display:none.
@@ -392,6 +422,7 @@ body { overflow: hidden; }
   height: 100%;
   width: 100%;
 }
+
 /* Clearfix: contains the floated .page--left and .page--right */
 .spread::after {
   content: '';
@@ -399,9 +430,94 @@ body { overflow: hidden; }
   clear: both;
 }
 
+/* ======================================================================
+   MOBILE RESPONSIVENESS
+   ====================================================================== */
+
+@media (max-width: 768px) {
+  body {
+    padding: clamp(4px, 1.5vw, 12px);
+  }
+
+  .book-wrapper {
+    gap: clamp(10px, 2.5vw, 16px);
+  }
+
+  .book {
+    width: clamp(290px, 92vw, 800px);
+    aspect-ratio: 16 / 10;
+    padding: clamp(6px, 1.5vw, 12px);
+  }
+
+  .book-nav {
+    max-width: clamp(270px, 92vw, 820px);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: clamp(2px, 1vw, 8px);
+  }
+
+  .book-wrapper {
+    gap: clamp(8px, 2vw, 12px);
+    min-height: auto;
+  }
+
+  .book {
+    width: clamp(280px, 94vw, 600px);
+    aspect-ratio: 16 / 10;
+    padding: clamp(4px, 1vw, 8px);
+  }
+
+  .page__text {
+    font-size: clamp(0.65rem, 1.6vw, 0.8rem);
+  }
+
+  .page__title {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    margin: 0.4em 0 0.8em 0;
+  }
+
+  .right-poem-text {
+    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+  }
+
+  .right-poem-salute {
+    font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+  }
+
+  .nav-pill {
+    font-size: clamp(0.65rem, 1.5vw, 0.75rem);
+    padding: clamp(6px, 1.2vw, 8px) clamp(10px, 2vw, 14px);
+  }
+
+  .nav-indicator {
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+  }
+
+  .book-nav {
+    gap: clamp(8px, 2vw, 12px);
+    padding: clamp(8px, 1.5vw, 10px) clamp(10px, 2vw, 14px);
+  }
+}
+
+@media (max-height: 600px) and (max-width: 768px) {
+  .book-wrapper {
+    gap: clamp(6px, 1.5vw, 10px);
+  }
+
+  .book {
+    width: clamp(280px, 90vw, 750px);
+  }
+}
+
     </style>
 </head>
 <body>
+
+    <!-- Main wrapper for flexible layout -->
+    <div class="book-wrapper">
 
     <!-- Rose petals falling background -->
     <div id="container" aria-hidden="true"></div>
@@ -427,8 +543,8 @@ body { overflow: hidden; }
                ============================================================ -->
           <div class="page__text">
             <h2 class="page__title">To You, On Your Special Day</h2>
-            <p>There are moments in life that feel like poetry — quiet, beautiful, and impossible to fully put into words. Today is one of them. As you open this, I want you to know that simply knowing you has made my world warmer, brighter, and more alive.</p>
-            <p>Every year that passes only reveals more of who you truly are — and every layer I discover leaves me more in awe of the person you've become. You deserve every wish, every rose, every golden second of this day.</p>
+            <p>There are moments in life that feel like poetry — quiet, beautiful, and impossible to fully put into words. Today is one of them. As you open this, I want you to know that simply[...]
+            <p>Every year that passes only reveals more of who you truly are — and every layer I discover leaves me more in awe of the person you've become. You deserve every wish, every rose, [...]
             <p>So here is a small world I built just for you. Not grand enough to match you — nothing could be — but made entirely with love.</p>
             <p><em>With all my heart, always ❤️</em></p>
           </div>
@@ -484,7 +600,7 @@ body { overflow: hidden; }
                ============================================================ -->
           <div class="page__text">
             <h2 class="page__title">The Moments I Treasure</h2>
-            <p>Some things cannot be measured — only felt. The warmth of a shared silence. The sound of your laughter finding its way into a room before you do. The way time moves differently when you are near: slower, sweeter, more worthy of being noticed.</p>
+            <p>Some things cannot be measured — only felt. The warmth of a shared silence. The sound of your laughter finding its way into a room before you do. The way time moves differently w[...]
             <p>I collect these moments like pressed flowers — each one small and perfect, each one proof that this life is beautiful in ways I could not have imagined before I knew you.</p>
             <p>Today, I return them to you gently. Because the best parts of my days all trace back to you.</p>
             <p><em>Thank you for every one. ❤️</em></p>
@@ -541,8 +657,8 @@ body { overflow: hidden; }
           <div class="page__text">
             <h2 class="page__title">Everything You Are</h2>
             <p>You are the kind of person poems were invented for — not because you are unreachable, but because you make ordinary life feel like something that deserves to be written down.</p>
-            <p>You carry kindness the way others carry keys: automatically, without thinking, always ready to open something for someone. And your eyes — they don't just see the world. They make the world feel seen.</p>
-            <p>There is a steadiness in you, and a warmth, and a quiet wildness that only shows itself at the right moments. All of it is worth celebrating. All of it is beautifully, unmistakably you.</p>
+            <p>You carry kindness the way others carry keys: automatically, without thinking, always ready to open something for someone. And your eyes — they don't just see the world. They mak[...]
+            <p>There is a steadiness in you, and a warmth, and a quiet wildness that only shows itself at the right moments. All of it is worth celebrating. All of it is beautifully, unmistakably[...]
           </div>
           <!-- ======================================= END SPREAD 3 LEFT -->
         </div>
@@ -595,8 +711,8 @@ body { overflow: hidden; }
                ============================================================ -->
           <div class="page__text">
             <h2 class="page__title">For the Year Ahead</h2>
-            <p>Birthdays are strange and wonderful things. They are the universe's way of saying: here is a day entirely yours. A day to be a little more celebrated, a little more held, a little more reminded of how much your presence means.</p>
-            <p>My wish for you is simple, and enormous: may every day this year carry a little of what you deserve — joy that surprises you, peace that holds you, and love that asks nothing but to be received.</p>
+            <p>Birthdays are strange and wonderful things. They are the universe's way of saying: here is a day entirely yours. A day to be a little more celebrated, a little more held, a little [...]
+            <p>My wish for you is simple, and enormous: may every day this year carry a little of what you deserve — joy that surprises you, peace that holds you, and love that asks nothing but[...]
             <p>May you bloom beautifully, my dear. You always do.</p>
             <p><em>With all my love, forever ❤️</em></p>
           </div>
@@ -641,10 +757,12 @@ body { overflow: hidden; }
       <button class="nav-pill" id="btn-next" type="button" onclick="nextPage()">Next →</button>
     </div>
 
+    </div><!-- /book-wrapper -->
+
     <!-- GSAP for rose petals + page transitions -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
 
-    <!-- Rose petals animation (original, unchanged) -->
+    <!-- Rose petals animation (responsive) -->
     <script>
       TweenLite.set("#container", { perspective: 600 });
       TweenLite.set("img", { xPercent: "-50%", yPercent: "-50%" });
@@ -667,10 +785,16 @@ body { overflow: hidden; }
         TweenMax.to(elm, R(4, 8),  { x: '+=100', rotationZ: R(0, 180), repeat: -1, yoyo: true, ease: Sine.easeInOut });
         TweenMax.to(elm, R(2, 8),  { rotationX: R(0, 360), rotationY: R(0, 360), repeat: -1, yoyo: true, ease: Sine.easeInOut, delay: -5 });
       }
+
+      /* Reposition petals on resize */
+      window.addEventListener('resize', function() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+      });
     </script>
 
     <!-- ================================================================
-         SPREAD NAVIGATION  (new)
+         SPREAD NAVIGATION  (unchanged)
 
          HOW TO ADD ANOTHER SPREAD:
            1. Duplicate any spread block in the HTML (id="spread-N").
