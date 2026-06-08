@@ -31,21 +31,25 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  min-width: 100vw;
-  overflow-x: hidden;
-  padding: clamp(8px, 2vw, 20px);
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-/* Main container for book + nav */
+/* Main container for book + nav - fits entirely in viewport */
 .book-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(12px, 3vw, 24px);
+  gap: clamp(8px, 2vh, 16px);
   width: 100%;
-  max-width: 100vw;
+  height: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  padding: clamp(4px, 1vh, 8px) clamp(4px, 1vw, 8px);
 }
 
 /* soft romantic glow behind the book */
@@ -87,11 +91,11 @@ body {
                     none;
   background-size: 200px;
   
-  /* Responsive sizing using clamp */
-  width: clamp(300px, 90vw, 850px);
-  aspect-ratio: 16 / 10;
+  /* Responsive sizing - fit in viewport with nav */
+  width: min(90vw, 85vh * 1.6);
+  height: min(60vh, 85vh * 0.625);
   border-radius: 5px;
-  padding: clamp(8px, 2vw, 20px);
+  padding: clamp(6px, min(1.5vw, 1.5vh), 12px);
   box-shadow: inset 0 0 15px #344533, 2px 5px 15px #0008;
   isolation: isolate;
   flex-shrink: 0;
@@ -169,7 +173,8 @@ body {
 
 .corner-decoration {
   position: absolute;
-  height: clamp(60px, 8vw, 100px);
+  height: clamp(50px, 6vw, 85px);
+  width: clamp(50px, 6vw, 85px);
   aspect-ratio: 1/1;
   z-index: 5;
   /* force the corner images to read as darker romantic red */
@@ -178,40 +183,40 @@ body {
 }
 
 .corner-decoration--left-top {
-  top: clamp(30px, 5vw, 55px);
-  left: clamp(40px, 8vw, 90px);
+  top: clamp(20px, 3vh, 45px);
+  left: clamp(30px, 5vw, 70px);
   transform: matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .corner-decoration--left-bottom {
-  bottom: clamp(-10px, -2vw, -5px);
-  left: clamp(40px, 8vw, 90px);
+  bottom: clamp(-15px, -2vh, -10px);
+  left: clamp(30px, 5vw, 70px);
   transform: rotate(-90deg)
     matrix3d(1, 0, 0, 0, 0, 1, 0, -0.001, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .corner-decoration--right-top {
-  top: clamp(30px, 5vw, 55px);
-  right: clamp(-20px, -2vw, -11px);
+  top: clamp(20px, 3vh, 45px);
+  right: clamp(-25px, -3vw, -15px);
   transform: rotate(90deg)
     matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .corner-decoration--right-bottom {
-  bottom: clamp(-10px, -2vw, -5px);
-  right: clamp(-20px, -2vw, -11px);
+  bottom: clamp(-15px, -2vh, -10px);
+  right: clamp(-25px, -3vw, -15px);
   transform: rotate(180deg)
     matrix3d(1, 0, 0, 0, 0, 1, 0, -0.001, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .page--left .page__text {
-  inset: clamp(30px, 5vw, 50px) clamp(12px, 2vw, 20px) clamp(8px, 1.5vw, 10px) clamp(50px, 10vw, 100px);
+  inset: clamp(25px, 3vh, 40px) clamp(10px, 1.5vw, 15px) clamp(8px, 1.2vh, 10px) clamp(40px, 7vw, 80px);
 }
 
 .page__text {
   position: absolute;
   font-family: "Lusitana", serif;
-  font-size: clamp(0.7rem, 1.8vw, 0.95rem);
+  font-size: clamp(0.65rem, 1.5vw, 0.88rem);
   color: #2a0d0f;
   overflow: hidden;
 }
@@ -228,9 +233,9 @@ body {
 
 .page__title {
   position: relative;
-  font-size: clamp(0.9rem, 2.2vw, 1.15rem);
+  font-size: clamp(0.8rem, 2vw, 1.05rem);
   text-align: center;
-  margin: 0.5em 0 1em 0;
+  margin: 0.4em 0 0.8em 0;
   z-index: 20;
   color: #8b1a2a;
   text-shadow: 0 1px 0 rgba(255,255,255,0.55), 0 0 18px rgba(178,34,34,0.18);
@@ -244,9 +249,9 @@ body {
 
 .page--right .page__container {
   --top: 0px;
-  --right: clamp(30px, 6vw, 65px);
-  --bottom: clamp(8px, 1.5vw, 10px);
-  --left: clamp(15px, 3vw, 25px);
+  --right: clamp(20px, 4vw, 55px);
+  --bottom: clamp(8px, 1.2vh, 10px);
+  --left: clamp(12px, 2vw, 20px);
 
   position: relative;
   height: 100%;
@@ -290,10 +295,10 @@ body {
 .image-credit {
   position: absolute;
   z-index: 30;
-  bottom: clamp(12px, 2vw, 20px);
-  right: clamp(40px, 8vw, 80px);
+  bottom: clamp(10px, 1.5vh, 15px);
+  right: clamp(30px, 5vw, 65px);
   font-family: sans-serif;
-  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+  font-size: clamp(0.6rem, 1vw, 0.75rem);
   font-weight: bold;
   color: #eeee;
 }
@@ -313,16 +318,16 @@ body {
 .right-poem-text {
   margin: 0;
   font-family: "Baskervville", "Times New Roman", serif;
-  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  font-size: clamp(0.85rem, 1.8vw, 1.15rem);
   line-height: 1.6;
   color: rgba(80,10,20,0.92);
   text-shadow: 0 2px 10px rgba(255,255,255,0.45);
 }
 
 .right-poem-salute {
-  margin: clamp(10px, 1.5vw, 14px) 0 0 0;
+  margin: clamp(8px, 1.2vh, 12px) 0 0 0;
   font-family: "Baskervville", "Times New Roman", serif;
-  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+  font-size: clamp(0.75rem, 1.6vw, 0.95rem);
   line-height: 1.55;
   font-style: italic;
   color: #8b1a2a;
@@ -333,11 +338,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(12px, 3vw, 20px);
+  gap: clamp(8px, 2vw, 16px);
   flex-wrap: wrap;
-  width: 100%;
-  max-width: clamp(280px, 90vw, 870px);
-  padding: clamp(10px, 2vw, 14px) clamp(12px, 2.5vw, 18px);
+  width: min(90vw, 85vh * 1.6);
+  padding: clamp(8px, 1.2vh, 12px) clamp(10px, 1.5vw, 14px);
   border-radius: 999px;
   background: rgba(20,0,2,0.55);
   border: 1px solid rgba(178,34,34,0.45);
@@ -351,11 +355,11 @@ body {
   border: 1px solid rgba(212,175,55,0.45);
   color: #f0d060;
   background: linear-gradient(135deg, rgba(139,0,0,0.9), rgba(178,34,34,0.9));
-  padding: clamp(8px, 1.5vw, 10px) clamp(14px, 2.5vw, 18px);
+  padding: clamp(6px, 1.2vh, 9px) clamp(12px, 2vw, 16px);
   border-radius: 999px;
   cursor: pointer;
   font-family: "Lusitana", serif;
-  font-size: clamp(0.7rem, 1.8vw, 0.88rem);
+  font-size: clamp(0.65rem, 1.6vw, 0.82rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   box-shadow: 0 6px 22px rgba(139,0,0,0.35);
@@ -378,7 +382,7 @@ body {
 .nav-indicator {
   color: rgba(240,208,96,0.85);
   font-family: "Lusitana", serif;
-  font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+  font-size: clamp(0.7rem, 1.6vw, 0.88rem);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -397,8 +401,8 @@ body { overflow: hidden; }
 }
 
 .dot {
-  width: clamp(20px, 4vw, 35px);
-  height: clamp(20px, 4vw, 35px);
+  width: clamp(18px, 3.5vw, 32px);
+  height: clamp(18px, 3.5vw, 32px);
   position: absolute;
   background: url(https://image.ibb.co/kyUHab/rose.png);
   background-size: 100% 100%;
@@ -430,93 +434,11 @@ body { overflow: hidden; }
   clear: both;
 }
 
-/* ======================================================================
-   MOBILE RESPONSIVENESS
-   ====================================================================== */
-
-@media (max-width: 768px) {
-  body {
-    padding: clamp(4px, 1.5vw, 12px);
-  }
-
-  .book-wrapper {
-    gap: clamp(10px, 2.5vw, 16px);
-  }
-
-  .book {
-    width: clamp(290px, 92vw, 800px);
-    aspect-ratio: 16 / 10;
-    padding: clamp(6px, 1.5vw, 12px);
-  }
-
-  .book-nav {
-    max-width: clamp(270px, 92vw, 820px);
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    padding: clamp(2px, 1vw, 8px);
-  }
-
-  .book-wrapper {
-    gap: clamp(8px, 2vw, 12px);
-    min-height: auto;
-  }
-
-  .book {
-    width: clamp(280px, 94vw, 600px);
-    aspect-ratio: 16 / 10;
-    padding: clamp(4px, 1vw, 8px);
-  }
-
-  .page__text {
-    font-size: clamp(0.65rem, 1.6vw, 0.8rem);
-  }
-
-  .page__title {
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    margin: 0.4em 0 0.8em 0;
-  }
-
-  .right-poem-text {
-    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
-  }
-
-  .right-poem-salute {
-    font-size: clamp(0.75rem, 1.5vw, 0.95rem);
-  }
-
-  .nav-pill {
-    font-size: clamp(0.65rem, 1.5vw, 0.75rem);
-    padding: clamp(6px, 1.2vw, 8px) clamp(10px, 2vw, 14px);
-  }
-
-  .nav-indicator {
-    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
-  }
-
-  .book-nav {
-    gap: clamp(8px, 2vw, 12px);
-    padding: clamp(8px, 1.5vw, 10px) clamp(10px, 2vw, 14px);
-  }
-}
-
-@media (max-height: 600px) and (max-width: 768px) {
-  .book-wrapper {
-    gap: clamp(6px, 1.5vw, 10px);
-  }
-
-  .book {
-    width: clamp(280px, 90vw, 750px);
-  }
-}
-
     </style>
 </head>
 <body>
 
-    <!-- Main wrapper for flexible layout -->
+    <!-- Main wrapper for flexible layout - always centered and visible -->
     <div class="book-wrapper">
 
     <!-- Rose petals falling background -->
