@@ -20,6 +20,10 @@ body {
   place-content: center;
   min-width: 100vw;
   min-height: 100vh;
+  /* MOBILE FIX: Reset min-width to prevent horizontal scrolling on mobile */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 /* soft romantic glow behind the book */
@@ -60,27 +64,15 @@ body {
                     radial-gradient(ellipse at 40% 90%, rgba(201,168,76,0.10), transparent 60%),
                     none;
   background-size: 200px;
-  height: 500px;
-  width: 800px;
+  /* MOBILE FIX: Use clamp() for responsive height/width */
+  height: clamp(300px, 90vh, 500px);
+  width: clamp(280px, 95vw, 800px);
   border-radius: 5px;
-  padding: 10px 20px;
+  /* MOBILE FIX: Use responsive padding with clamp() */
+  padding: clamp(8px, 2vw, 20px) clamp(10px, 2.5vw, 20px);
+  box-sizing: border-box;
   box-shadow: inset 0 0 15px #344533, 2px 5px 15px #0008;
   isolation: isolate;
-}
-
-.book::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url(https://i.pinimg.com/originals/08/60/25/086025d62f7d1794a815e0e7042cae2d.png);
-  background-size: 100%;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  filter: invert(1) opacity(0.2) blur(1px);
-  border-radius: 5px;
-  height: 100%;
-  width: 100%;
-  z-index: -2;
 }
 
 .page {
@@ -89,6 +81,7 @@ body {
   width: 50%;
   background: linear-gradient(180deg, #fff7f0 0%, #faf7f2 45%, #f8efe6 100%);
   box-shadow: inset 0 0 0 1px rgba(178,34,34,0.08);
+  /* MOBILE FIX: On screens below 768px, make pages full-width (single-page layout) */
 }
 
 .page--left {
@@ -155,7 +148,8 @@ body {
 
 .corner-decoration {
   position: absolute;
-  height: 100px;
+  /* MOBILE FIX: Use clamp() to scale corner decorations responsively */
+  height: clamp(40px, 12vw, 100px);
   aspect-ratio: 1/1;
   z-index: 5;
   /* force the corner images to read as darker romantic red */
@@ -164,20 +158,21 @@ body {
 }
 
 .corner-decoration--left-top {
-  top: 55px;
-  left: 90px;
+  /* MOBILE FIX: Use clamp() for positioning */
+  top: clamp(20px, 5vh, 55px);
+  left: clamp(15px, 5vw, 90px);
   transform: matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .corner-decoration--left-bottom {
   bottom: -5px;
-  left: 90px;
+  left: clamp(15px, 5vw, 90px);
   transform: rotate(-90deg)
     matrix3d(1, 0, 0, 0, 0, 1, 0, -0.001, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 .corner-decoration--right-top {
-  top: 55px;
+  top: clamp(20px, 5vh, 55px);
   right: -11px;
   transform: rotate(90deg)
     matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
@@ -191,14 +186,17 @@ body {
 }
 
 .page--left .page__text {
-  inset: 50px 20px 10px 100px;
+  /* MOBILE FIX: Use clamp() for responsive inset positioning */
+  inset: clamp(20px, 8vh, 50px) clamp(10px, 4vw, 20px) clamp(5px, 3vh, 10px) clamp(30px, 8vw, 100px);
 }
 
 .page__text {
   position: absolute;
   font-family: "Lusitana", serif;
-  font-size: 0.9rem;
+  /* MOBILE FIX: Use clamp() for fluid typography */
+  font-size: clamp(0.7rem, 2.5vw, 0.9rem);
   color: #2a0d0f;
+  overflow: hidden;
 }
 
 .page__text p {
@@ -213,7 +211,8 @@ body {
 
 .page__title {
   position: relative;
-  font-size: 1.1rem;
+  /* MOBILE FIX: Fluid typography for title */
+  font-size: clamp(0.85rem, 3vw, 1.1rem);
   text-align: center;
   margin: 0.5em 0 1em 0;
   z-index: 20;
@@ -224,7 +223,8 @@ body {
 .page__text p {
   margin: 0;
   text-indent: 1.5em;
-  line-height: 1.3;
+  /* MOBILE FIX: Adjust line-height for better mobile readability */
+  line-height: clamp(1.25, 2.5vw, 1.3);
 }
 
 .page--right .page__container {
@@ -298,8 +298,9 @@ body {
 .right-poem-text {
   margin: 0;
   font-family: "Baskervville", "Times New Roman", serif;
-  font-size: 1.2rem;
-  line-height: 1.55;
+  /* MOBILE FIX: Fluid typography for poem */
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  line-height: clamp(1.4, 2.5vw, 1.55);
   color: rgba(80,10,20,0.92);
   text-shadow: 0 2px 10px rgba(255,255,255,0.45);
 }
@@ -307,8 +308,9 @@ body {
 .right-poem-salute {
   margin: 14px 0 0 0;
   font-family: "Baskervville", "Times New Roman", serif;
-  font-size: 1.02rem;
-  line-height: 1.55;
+  /* MOBILE FIX: Fluid typography for salute */
+  font-size: clamp(0.8rem, 2.5vw, 1.02rem);
+  line-height: clamp(1.4, 2.5vw, 1.55);
   font-style: italic;
   color: #8b1a2a;
   text-shadow: 0 2px 12px rgba(178,34,34,0.18);
@@ -320,29 +322,34 @@ body {
   justify-content: space-between;
   gap: 16px;
   margin-top: 18px;
-  width: 800px;
+  /* MOBILE FIX: Make nav responsive without exceeding viewport */
+  width: clamp(280px, 95vw, 800px);
   max-width: calc(100vw - 40px);
-  padding: 12px 16px;
+  padding: clamp(8px, 2vw, 12px) clamp(10px, 2vw, 16px);
   border-radius: 999px;
   background: rgba(20,0,2,0.55);
   border: 1px solid rgba(178,34,34,0.45);
   box-shadow: 0 10px 40px rgba(0,0,0,0.45), inset 0 0 20px rgba(178,34,34,0.18);
   backdrop-filter: blur(8px);
+  box-sizing: border-box;
 }
 
 .nav-pill {
   border: 1px solid rgba(212,175,55,0.45);
   color: #f0d060;
   background: linear-gradient(135deg, rgba(139,0,0,0.9), rgba(178,34,34,0.9));
-  padding: 10px 18px;
+  /* MOBILE FIX: Responsive padding with clamp() */
+  padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 18px);
   border-radius: 999px;
   cursor: pointer;
   font-family: "Lusitana", serif;
-  font-size: 0.85rem;
+  /* MOBILE FIX: Fluid font-size for buttons */
+  font-size: clamp(0.7rem, 2vw, 0.85rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   box-shadow: 0 6px 22px rgba(139,0,0,0.35);
   transition: opacity 0.2s ease;
+  white-space: nowrap;
 }
 .nav-pill:hover:not(:disabled) {
   transform: translateY(-2px);
@@ -358,9 +365,11 @@ body {
 .nav-indicator {
   color: rgba(240,208,96,0.85);
   font-family: "Lusitana", serif;
-  font-size: 0.9rem;
+  /* MOBILE FIX: Fluid font-size for page indicator */
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* rose petals falling background */
@@ -399,6 +408,223 @@ body { overflow: hidden; }
   clear: both;
 }
 
+/* ======================================================================
+   MOBILE RESPONSIVE LAYOUT (< 768px)
+   
+   This media query switches the book layout from a two-page spread to a
+   single-page layout on small screens. Text remains readable, decorations
+   scale appropriately, and the premium aesthetic is preserved.
+   ====================================================================== */
+
+@media (max-width: 767px) {
+  /* MOBILE: Center the body and adjust viewport */
+  body {
+    display: grid;
+    place-content: center;
+    padding: clamp(8px, 2vw, 16px);
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  /* MOBILE: Book becomes a single-page container */
+  .book {
+    height: auto;
+    width: 100%;
+    max-width: 100%;
+    padding: clamp(8px, 3vw, 16px);
+    /* Maintain aspect ratio flexibility */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* MOBILE: Hide the glow effect on small screens to reduce visual noise */
+  .book::before {
+    inset: -15px;
+    filter: blur(6px);
+  }
+
+  /* MOBILE: Both pages now display as full-width stacked pages */
+  .page {
+    width: 100% !important;
+    float: none !important;
+    min-height: 50vh;
+    margin-bottom: clamp(8px, 3vw, 16px);
+    box-sizing: border-box;
+  }
+
+  /* MOBILE: Adjust page shadows for single-page layout */
+  .page--left,
+  .page--right {
+    box-shadow: inset 0 0 15px rgba(178,34,34,0.12), inset 0 -5px 10px #e7dcc9 !important;
+  }
+
+  /* MOBILE: Scale decorative corners for mobile */
+  .corner-decoration {
+    height: clamp(30px, 8vw, 60px);
+    opacity: 0.85;
+  }
+
+  .corner-decoration--left-top {
+    top: clamp(10px, 4vh, 25px);
+    left: clamp(8px, 3vw, 20px);
+  }
+
+  .corner-decoration--left-bottom {
+    bottom: 0;
+    left: clamp(8px, 3vw, 20px);
+  }
+
+  .corner-decoration--right-top {
+    top: clamp(10px, 4vh, 25px);
+    right: clamp(8px, 3vw, 20px);
+  }
+
+  .corner-decoration--right-bottom {
+    bottom: 0;
+    right: clamp(8px, 3vw, 20px);
+  }
+
+  /* MOBILE: Adjust text positioning for single page */
+  .page--left .page__text {
+    inset: clamp(15px, 5vh, 30px) clamp(8px, 3vw, 15px) clamp(8px, 3vh, 15px) clamp(20px, 5vw, 30px) !important;
+  }
+
+  .page__text {
+    font-size: clamp(0.75rem, 3.5vw, 0.95rem);
+    line-height: clamp(1.35, 3vw, 1.45);
+    overflow-y: auto;
+    max-height: calc(100% - 20px);
+  }
+
+  /* MOBILE: Make page titles larger and more readable on mobile */
+  .page__title {
+    font-size: clamp(0.95rem, 3.5vw, 1.15rem);
+    margin: 0.3em 0 0.8em 0;
+  }
+
+  /* MOBILE: Remove text indentation on mobile for better readability */
+  .page__text p {
+    text-indent: 0;
+    margin-bottom: 0.6em;
+  }
+
+  /* MOBILE: Adjust poem sizing and positioning */
+  .right-poem {
+    position: static;
+    transform: none;
+    width: 100%;
+    margin-top: 20px;
+    padding: clamp(10px, 3vw, 20px);
+  }
+
+  .right-poem-text {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    line-height: clamp(1.4, 3vw, 1.5);
+  }
+
+  .right-poem-salute {
+    font-size: clamp(0.8rem, 3vw, 1rem);
+    line-height: clamp(1.4, 3vw, 1.5);
+  }
+
+  /* MOBILE: Adjust page container for mobile single-page layout */
+  .page--right .page__container {
+    --top: clamp(8px, 2vh, 15px);
+    --right: clamp(8px, 3vw, 20px);
+    --bottom: clamp(8px, 2vh, 15px);
+    --left: clamp(8px, 3vw, 20px);
+    padding: var(--top) var(--right) var(--bottom) var(--left);
+  }
+
+  /* MOBILE: Navigation bar becomes more compact and touch-friendly */
+  .book-nav {
+    width: 100%;
+    max-width: 100%;
+    gap: clamp(8px, 2vw, 12px);
+    padding: clamp(10px, 2.5vw, 14px) clamp(10px, 2vw, 12px);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: 16px;
+    border-radius: 0;
+    box-sizing: border-box;
+  }
+
+  /* MOBILE: Make nav buttons larger for touch targets (minimum 44x44px) */
+  .nav-pill {
+    min-width: 44px;
+    min-height: 44px;
+    padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px);
+    font-size: clamp(0.65rem, 2.2vw, 0.8rem);
+  }
+
+  .nav-indicator {
+    font-size: clamp(0.65rem, 2vw, 0.8rem);
+    flex: 1;
+    text-align: center;
+  }
+
+  /* MOBILE: Body needs bottom padding to avoid content hidden by nav bar */
+  body {
+    padding-bottom: clamp(70px, 20vh, 100px);
+  }
+}
+
+/* ======================================================================
+   EXTRA SMALL SCREENS (< 480px)
+   
+   Additional refinements for very small phones to ensure text remains
+   readable and the design remains elegant even on the tiniest displays.
+   ====================================================================== */
+
+@media (max-width: 479px) {
+  /* EXTRA SMALL: Reduce padding on book exterior */
+  .book {
+    padding: clamp(6px, 2vw, 12px);
+  }
+
+  /* EXTRA SMALL: Make decorations even smaller */
+  .corner-decoration {
+    height: clamp(25px, 6vw, 45px);
+  }
+
+  /* EXTRA SMALL: Tighter text margins */
+  .page__text {
+    font-size: clamp(0.7rem, 3.2vw, 0.85rem);
+  }
+
+  /* EXTRA SMALL: Reduce margins between paragraphs */
+  .page__text p {
+    margin-bottom: 0.5em;
+  }
+
+  /* EXTRA SMALL: Further reduce title size */
+  .page__title {
+    font-size: clamp(0.8rem, 3vw, 0.95rem);
+  }
+
+  /* EXTRA SMALL: Compress poem sizing */
+  .right-poem-text {
+    font-size: clamp(0.8rem, 3vw, 1rem);
+  }
+
+  .right-poem-salute {
+    font-size: clamp(0.7rem, 2.8vw, 0.9rem);
+  }
+
+  /* EXTRA SMALL: Make nav bar even more compact */
+  .nav-pill {
+    padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 14px);
+    font-size: clamp(0.6rem, 1.8vw, 0.7rem);
+  }
+
+  .nav-indicator {
+    font-size: clamp(0.6rem, 1.8vw, 0.75rem);
+  }
+}
+
     </style>
 </head>
 <body>
@@ -416,9 +642,9 @@ body { overflow: hidden; }
         <!-- LEFT PAGE — Spread 1 -->
         <div class="page page--left">
           <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
           <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
 
           <!-- ============================================================
                SPREAD 1 — LEFT PAGE CONTENT
@@ -427,8 +653,8 @@ body { overflow: hidden; }
                ============================================================ -->
           <div class="page__text">
             <h2 class="page__title">To You, On Your Special Day</h2>
-            <p>There are moments in life that feel like poetry — quiet, beautiful, and impossible to fully put into words. Today is one of them. As you open this, I want you to know that simply knowing you has made my world warmer, brighter, and more alive.</p>
-            <p>Every year that passes only reveals more of who you truly are — and every layer I discover leaves me more in awe of the person you've become. You deserve every wish, every rose, every golden second of this day.</p>
+            <p>There are moments in life that feel like poetry — quiet, beautiful, and impossible to fully put into words. Today is one of them. As you open this, I want you to know that simply[...]
+            <p>Every year that passes only reveals more of who you truly are — and every layer I discover leaves me more in awe of the person you've become. You deserve every wish, every rose, [...]
             <p>So here is a small world I built just for you. Not grand enough to match you — nothing could be — but made entirely with love.</p>
             <p><em>With all my heart, always ❤️</em></p>
           </div>
@@ -439,9 +665,9 @@ body { overflow: hidden; }
         <div class="page page--right">
           <div class="page__container">
             <img class="corner-decoration corner-decoration--right-top"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
             <img class="corner-decoration corner-decoration--right-bottom"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
 
             <!-- ============================================================
                  SPREAD 1 — RIGHT PAGE CONTENT
@@ -473,9 +699,9 @@ body { overflow: hidden; }
         <!-- LEFT PAGE — Spread 2 -->
         <div class="page page--left">
           <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
           <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
 
           <!-- ============================================================
                SPREAD 2 — LEFT PAGE CONTENT
@@ -484,7 +710,7 @@ body { overflow: hidden; }
                ============================================================ -->
           <div class="page__text">
             <h2 class="page__title">The Moments I Treasure</h2>
-            <p>Some things cannot be measured — only felt. The warmth of a shared silence. The sound of your laughter finding its way into a room before you do. The way time moves differently when you are near: slower, sweeter, more worthy of being noticed.</p>
+            <p>Some things cannot be measured — only felt. The warmth of a shared silence. The sound of your laughter finding its way into a room before you do. The way time moves differently w[...]
             <p>I collect these moments like pressed flowers — each one small and perfect, each one proof that this life is beautiful in ways I could not have imagined before I knew you.</p>
             <p>Today, I return them to you gently. Because the best parts of my days all trace back to you.</p>
             <p><em>Thank you for every one. ❤️</em></p>
@@ -496,9 +722,9 @@ body { overflow: hidden; }
         <div class="page page--right">
           <div class="page__container">
             <img class="corner-decoration corner-decoration--right-top"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
             <img class="corner-decoration corner-decoration--right-bottom"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
 
             <!-- ============================================================
                  SPREAD 2 — RIGHT PAGE CONTENT
@@ -529,9 +755,9 @@ body { overflow: hidden; }
         <!-- LEFT PAGE — Spread 3 -->
         <div class="page page--left">
           <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
           <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
 
           <!-- ============================================================
                SPREAD 3 — LEFT PAGE CONTENT
@@ -541,8 +767,8 @@ body { overflow: hidden; }
           <div class="page__text">
             <h2 class="page__title">Everything You Are</h2>
             <p>You are the kind of person poems were invented for — not because you are unreachable, but because you make ordinary life feel like something that deserves to be written down.</p>
-            <p>You carry kindness the way others carry keys: automatically, without thinking, always ready to open something for someone. And your eyes — they don't just see the world. They make the world feel seen.</p>
-            <p>There is a steadiness in you, and a warmth, and a quiet wildness that only shows itself at the right moments. All of it is worth celebrating. All of it is beautifully, unmistakably you.</p>
+            <p>You carry kindness the way others carry keys: automatically, without thinking, always ready to open something for someone. And your eyes — they don't just see the world. They mak[...]
+            <p>There is a steadiness in you, and a warmth, and a quiet wildness that only shows itself at the right moments. All of it is worth celebrating. All of it is beautifully, unmistakably[...]
           </div>
           <!-- ======================================= END SPREAD 3 LEFT -->
         </div>
@@ -551,9 +777,9 @@ body { overflow: hidden; }
         <div class="page page--right">
           <div class="page__container">
             <img class="corner-decoration corner-decoration--right-top"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
             <img class="corner-decoration corner-decoration--right-bottom"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
 
             <!-- ============================================================
                  SPREAD 3 — RIGHT PAGE CONTENT
@@ -584,9 +810,9 @@ body { overflow: hidden; }
         <!-- LEFT PAGE — Spread 4 -->
         <div class="page page--left">
           <img class="corner-decoration corner-decoration--left-top"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
           <img class="corner-decoration corner-decoration--left-bottom"
-               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+               src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
 
           <!-- ============================================================
                SPREAD 4 — LEFT PAGE CONTENT
@@ -595,8 +821,8 @@ body { overflow: hidden; }
                ============================================================ -->
           <div class="page__text">
             <h2 class="page__title">For the Year Ahead</h2>
-            <p>Birthdays are strange and wonderful things. They are the universe's way of saying: here is a day entirely yours. A day to be a little more celebrated, a little more held, a little more reminded of how much your presence means.</p>
-            <p>My wish for you is simple, and enormous: may every day this year carry a little of what you deserve — joy that surprises you, peace that holds you, and love that asks nothing but to be received.</p>
+            <p>Birthdays are strange and wonderful things. They are the universe's way of saying: here is a day entirely yours. A day to be a little more celebrated, a little more held, a little [...]
+            <p>My wish for you is simple, and enormous: may every day this year carry a little of what you deserve — joy that surprises you, peace that holds you, and love that asks nothing but[...]
             <p>May you bloom beautifully, my dear. You always do.</p>
             <p><em>With all my love, forever ❤️</em></p>
           </div>
@@ -607,9 +833,9 @@ body { overflow: hidden; }
         <div class="page page--right">
           <div class="page__container">
             <img class="corner-decoration corner-decoration--right-top"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
             <img class="corner-decoration corner-decoration--right-bottom"
-                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+                 src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="decorative corner" />
 
             <!-- ============================================================
                  SPREAD 4 — RIGHT PAGE CONTENT
