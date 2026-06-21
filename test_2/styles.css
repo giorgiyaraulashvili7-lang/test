@@ -1,0 +1,784 @@
+/* ========================================
+   GENERAL STYLES & RESET
+   ======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: radial-gradient(ellipse at 20% 20%, rgba(255, 90, 120, 0.18) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 70%, rgba(120, 0, 20, 0.28) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 40%, rgba(70, 0, 10, 0.85) 0%, rgba(10, 0, 2, 1) 70%),
+                linear-gradient(180deg, #140002 0%, #300006 50%, #0c0001 100%);
+    font-family: "Lusitana", "Georgia", serif;
+    color: #2a0d0f;
+}
+
+/* Background rose petals (continuous) */
+#rose-background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+#rose-background .dot {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: url(https://image.ibb.co/kyUHab/rose.png);
+    background-size: 100% 100%;
+    transform-style: preserve-3d;
+    opacity: 0.9;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+/* Keep foreground stages above petals */
+.stage {
+    z-index: 10;
+}
+
+
+/* ========================================
+   STAGE MANAGEMENT
+   ======================================== */
+
+.stage {
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease-in-out;
+    z-index: 10;
+}
+
+.stage.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 50;
+}
+
+/* ========================================
+   STAGE 1: GIFT BOX
+   ======================================== */
+
+#stage-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.daz-gift-box {
+    position: relative;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.daz-gift-box:hover {
+    transform: scale(1.05);
+}
+
+.daz-gift-box.clicked {
+    pointer-events: none;
+}
+
+.daz-gift-box.clicked .gift-box-wrapper {
+    animation: squish 1000ms forwards;
+}
+
+.daz-gift-box.clicked .gift-box-top {
+    animation: rotate-top 250ms forwards;
+    animation-delay: 750ms;
+}
+
+.gift-box-wrapper {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    transform-origin: bottom;
+}
+
+.gift-box-top {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    bottom: 95%;
+    left: 0;
+    transform: scale(1.1);
+}
+
+.gift-box-bottom {
+    width: 100%;
+    height: 100%;
+}
+
+.confetti-target {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.petal-target {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.tap-to-open {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    color: rgba(240, 208, 96, 0.9);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    opacity: 1;
+    z-index: 60;
+}
+
+#stage-box .daz-gift-box.clicked ~ .tap-to-open {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px);
+}
+
+
+/* Rose Petal Animation */
+.petal {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background-image: url('https://image.ibb.co/kyUHab/rose.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: petalExplode 2000ms ease-out forwards;
+    transform-origin: center;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes squish {
+    0% { transform: scaleY(1) translateX(0); }
+    3.75% { transform: scale(1.1, 0.9) translateX(-5px); }
+    7.5% { transform: scale(1.1, 0.9) translateX(5px); }
+    11.25% { transform: scale(1.15, 0.85) translateX(-5px); }
+    15% { transform: scale(1.15, 0.85) translateX(5px); }
+    18.75% { transform: scale(1.2, 0.8) translateX(-5px); }
+    22.5% { transform: scale(1.2, 0.8) translateX(5px); }
+    26.25% { transform: scale(1.2, 0.75) translateX(-4px); }
+    30% { transform: scale(1.2, 0.75) translateX(4px); }
+    33.75% { transform: scale(1.22, 0.7) translateX(-4px); }
+    37.5% { transform: scale(1.22, 0.7) translateX(4px); }
+    41.25% { transform: scale(1.23, 0.65) translateX(-3px); }
+    45% { transform: scale(1.23, 0.65) translateX(3px); }
+    48.75% { transform: scale(1.24, 0.6) translateX(-3px); }
+    52.5% { transform: scale(1.24, 0.6) translateX(3px); }
+    56.25% { transform: scale(1.25, 0.55) translateX(-2px); }
+    60% { transform: scale(1.25, 0.55) translateX(2px); }
+    63.75% { transform: scale(1.25, 0.52) translateX(-2px); }
+    67.5% { transform: scale(1.25, 0.52) translateX(2px); }
+    71.25% { transform: scale(1.25, 0.5) translateX(-1px); }
+    75% { transform: scale(1.25, 0.5) translateX(0); }
+    100% { transform: scaleY(1) translateX(0); border-top: 25px solid #f0f0f0; }
+}
+
+@keyframes rotate-top {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-495deg); bottom: 5%; left: -60%; }
+}
+
+@keyframes petalExplode {
+    0% {
+        transform: translate(0, 0) scale(0.2) rotate(0deg);
+        opacity: 0;
+    }
+    8% {
+        opacity: 1;
+        transform: translate(calc(var(--x) * 70px), calc(var(--y) * -60px)) scale(1.1) rotate(calc(var(--r) * 1deg));
+    }
+    100% {
+        transform: translate(calc(var(--x) * 180px), calc(var(--y) * 220px)) scale(0.6) rotate(calc(var(--r) * 6deg));
+        opacity: 0;
+    }
+}
+
+/* ========================================
+   STAGE 2: BOOK REVEAL
+   ======================================== */
+
+#stage-book-reveal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-reveal-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.book-cover {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(135deg, #5a1a2a 0%, #8b1a2a 50%, #3a0812 100%);
+    border: 2px solid rgba(178, 34, 34, 0.5);
+    border-radius: 8px;
+    box-shadow: inset 0 0 30px rgba(178, 34, 34, 0.3), 0 20px 60px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    animation: bookFloat 3s ease-in-out infinite;
+}
+
+.book-cover:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: inset 0 0 40px rgba(178, 34, 34, 0.4), 0 30px 80px rgba(0, 0, 0, 0.8);
+}
+
+.book-cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('https://i.pinimg.com/originals/08/60/25/086025d62f7d1794a815e0e7042cae2d.png');
+    background-size: 200%;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.book-cover-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.book-cover-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff7f0;
+    margin: 0 0 10px 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+}
+
+.book-cover-subtitle {
+    font-size: 2rem;
+    font-style: italic;
+    color: #f0d060;
+    margin: 0 0 15px 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.book-cover-emoji {
+    font-size: 3rem;
+    margin: 10px 0;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.book-cover-decoration {
+    position: absolute;
+    bottom: 30px;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #f0d060, transparent);
+    opacity: 0.6;
+}
+
+@keyframes bookFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+}
+
+.book-cover.opening {
+    animation: bookOpen 0.8s ease-in-out forwards;
+}
+
+@keyframes bookOpen {
+    0% {
+        transform: scale(1) rotateY(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.8) rotateY(45deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(0.5) rotateY(90deg);
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+/* ========================================
+   STAGE 3: BOOK READING
+   ======================================== */
+
+#stage-book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.book-reading-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Soft romantic glow behind the book */
+.book::before {
+    content: "";
+    position: absolute;
+    inset: -30px;
+    border-radius: 20px;
+    background: radial-gradient(ellipse at 50% 30%, rgba(178, 34, 34, 0.28), transparent 60%);
+    filter: blur(10px);
+    z-index: -3;
+}
+
+.book::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url(https://i.pinimg.com/originals/08/60/25/086025d62f7d1794a815e0e7042cae2d.png);
+    background-size: 100%;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    filter: invert(1) opacity(0.22) blur(1px) saturate(1.2);
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    z-index: -2;
+}
+
+.book {
+    position: relative;
+    background: #3a0812;
+    border: 1px solid rgba(178, 34, 34, 0.42);
+    box-shadow: inset 0 0 20px rgba(178, 34, 34, 0.28), 0 10px 40px rgba(0, 0, 0, 0.55);
+    background-image: radial-gradient(ellipse at 20% 10%, rgba(178, 34, 34, 0.12), transparent 55%),
+                      radial-gradient(ellipse at 80% 20%, rgba(224, 64, 96, 0.10), transparent 55%),
+                      radial-gradient(ellipse at 40% 90%, rgba(201, 168, 76, 0.10), transparent 60%);
+    background-size: 200px;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    max-height: 600px;
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    box-shadow: inset 0 0 15px #344533, 2px 5px 15px #0008;
+    isolation: isolate;
+    display: flex;
+    flex-wrap: wrap;
+    animation: bookAppear 0.8s ease-out;
+}
+
+@keyframes bookAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.page {
+    position: relative;
+    height: 100%;
+    width: 50%;
+    background: linear-gradient(180deg, #fff7f0 0%, #faf7f2 45%, #f8efe6 100%);
+    box-shadow: inset 0 0 0 1px rgba(178, 34, 34, 0.08);
+    padding: 0;
+}
+
+.page--left {
+    float: left;
+    box-shadow: inset 60px 0 10px -15px #f3ede4, inset 0 -5px 15px #e7dcc9;
+}
+
+.page--right {
+    float: right;
+    box-shadow: inset -60px 0 10px -15px #ebe3d3, inset 0 -5px 15px #e7dcc9;
+}
+
+.page--left::after,
+.page--right::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 40px;
+    width: 100%;
+    background: inherit;
+    transform: translateY(-70%);
+}
+
+.page--left::after {
+    border-top-right-radius: 30% 100%;
+    border-top-left-radius: 100%;
+    box-shadow: inset 60px 0 10px -15px #f3ede4,
+        inset -5px 15px 13px -10px #e1cfb3;
+}
+
+.page--right::after {
+    border-top-left-radius: 30% 100%;
+    border-top-right-radius: 100%;
+    box-shadow: inset -60px 0 10px -15px #ebe3d3,
+        inset 5px 13px 15px -10px #e1cfb3;
+}
+
+.page--left::before,
+.page--right::before {
+    content: "";
+    position: absolute;
+    height: 100px;
+    width: 100%;
+    bottom: -100px;
+    background: #0008;
+    transform: translateX(3%);
+    filter: blur(15px);
+    box-shadow: 0 0 10px 5px #0004;
+    z-index: -1;
+}
+
+.page--left::before {
+    width: 90%;
+    right: 0;
+    height: 200px;
+    border-radius: 100%;
+    transform: rotate(20deg) translate(4%, -10px);
+}
+
+.page--right::before {
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 10%;
+}
+
+.corner-decoration {
+    position: absolute;
+    height: 100px;
+    aspect-ratio: 1 / 1;
+    z-index: 5;
+    filter: hue-rotate(335deg) saturate(2.8) contrast(1.25) brightness(0.72);
+    mix-blend-mode: multiply;
+}
+
+.corner-decoration--left-top {
+    top: 55px;
+    left: 90px;
+    transform: matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+.corner-decoration--left-bottom {
+    bottom: -5px;
+    left: 90px;
+    transform: rotate(-90deg)
+        matrix3d(1, 0, 0, 0, 0, 1, 0, -0.001, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+.corner-decoration--right-top {
+    top: 55px;
+    right: -11px;
+    transform: rotate(90deg)
+        matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+.corner-decoration--right-bottom {
+    bottom: -5px;
+    right: -11px;
+    transform: rotate(180deg)
+        matrix3d(1, 0, 0, 0, 0, 1, 0, -0.001, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+.page__text {
+    position: absolute;
+    inset: 30px 20px 10px 40px;
+    font-family: "Lusitana", serif;
+    font-size: 0.9rem;
+    color: #2a0d0f;
+    overflow-y: auto;
+    line-height: 1.5;
+}
+
+.page__text p {
+    position: relative;
+    margin: 0 0 1em 0;
+    text-indent: 1.5em;
+    line-height: 1.3;
+}
+
+.page__text p::first-letter {
+    color: #b22222;
+    font-size: 1.15em;
+    font-weight: 700;
+}
+
+.page__title {
+    position: relative;
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 0 0 1em 0;
+    z-index: 20;
+    color: #8b1a2a;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55), 0 0 18px rgba(178, 34, 34, 0.18);
+    font-weight: 700;
+}
+
+.page__container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 30px 25px 10px 25px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+/* Wish Card Grid on Right Pages */
+.wish-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+}
+
+.wish-card {
+    background: linear-gradient(135deg, rgba(178, 34, 34, 0.1) 0%, rgba(224, 64, 96, 0.05) 100%);
+    border: 1px solid rgba(178, 34, 34, 0.3);
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #5a1a2a;
+    line-height: 1.3;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(178, 34, 34, 0.1);
+    transition: all 0.3s ease;
+}
+
+.wish-card:hover {
+    background: linear-gradient(135deg, rgba(178, 34, 34, 0.15) 0%, rgba(224, 64, 96, 0.1) 100%);
+    box-shadow: 0 4px 12px rgba(178, 34, 34, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Book Navigation */
+.book-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 12px 16px;
+    border-radius: 999px;
+    background: rgba(20, 0, 2, 0.55);
+    border: 1px solid rgba(178, 34, 34, 0.45);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45), inset 0 0 20px rgba(178, 34, 34, 0.18);
+    backdrop-filter: blur(8px);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-pill {
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    color: #f0d060;
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.9), rgba(178, 34, 34, 0.9));
+    padding: 10px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: "Lusitana", serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: 0 6px 22px rgba(139, 0, 0, 0.35);
+    transition: all 0.3s ease;
+}
+
+.nav-pill:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(139, 0, 0, 0.5);
+}
+
+.nav-pill:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.nav-indicator {
+    color: rgba(240, 208, 96, 0.85);
+    font-family: "Lusitana", serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    min-width: 100px;
+    text-align: center;
+}
+
+/* ========================================
+   MOBILE RESPONSIVENESS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .book {
+        aspect-ratio: 9 / 16;
+        max-height: 100%;
+        padding: 8px 10px;
+    }
+
+    .page {
+        width: 50%;
+    }
+
+    .page__text {
+        inset: 20px 15px 10px 20px;
+        font-size: 0.8rem;
+    }
+
+    .page__title {
+        font-size: 1rem;
+    }
+
+    .corner-decoration {
+        height: 60px;
+    }
+
+    .corner-decoration--left-top {
+        top: 35px;
+        left: 40px;
+    }
+
+    .corner-decoration--left-bottom {
+        bottom: 5px;
+        left: 40px;
+    }
+
+    .corner-decoration--right-top {
+        top: 35px;
+        right: 0px;
+    }
+
+    .corner-decoration--right-bottom {
+        bottom: 5px;
+        right: 0px;
+    }
+
+    .page__container {
+        padding: 20px 15px 10px 15px;
+    }
+
+    .wish-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .wish-card {
+        padding: 10px;
+        font-size: 0.75rem;
+    }
+
+    .book-nav {
+        gap: 8px;
+        padding: 10px 8px;
+    }
+
+    .nav-pill {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+
+    .nav-indicator {
+        font-size: 0.8rem;
+        min-width: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .book {
+        aspect-ratio: 1 / 1.5;
+        max-height: 90vh;
+    }
+
+    .page__text {
+        inset: 15px 10px 10px 15px;
+        font-size: 0.7rem;
+    }
+
+    .page__title {
+        font-size: 0.9rem;
+    }
+
+    .wish-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .book-cover-title {
+        font-size: 1.8rem;
+    }
+
+    .book-cover-subtitle {
+        font-size: 1.4rem;
+    }
+
+    .book-cover-emoji {
+        font-size: 2rem;
+    }
+}
+
+/* ========================================
+   TYPOGRAPHY IMPORTS
+   ======================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Lusitana:wght@400;700&display=swap");

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Princess ❤️</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Stage 1: Gift Box Landing Page -->
+    <div id="rose-background" aria-hidden="true"></div>
+
+    <div id="stage-box" class="stage active">
+        <div class="box-container">
+            <div class="daz-gift-box" aria-label="Click to open gift">
+                <div class="gift-box-wrapper">
+                    <img class="gift-box-top" src="https://cdn.daz3d.com/file/dazcdn/media/sale-promo/advent/box-top.png" alt="Gift box lid">
+                    <div class="confetti-target">
+                        <img class="gift-box-bottom" src="https://cdn.daz3d.com/file/dazcdn/media/sale-promo/advent/box-bottom.png" alt="Gift box">
+                    </div>
+                    <div class="petal-target" aria-hidden="true"></div>
+                </div>
+                <div class="tap-to-open" id="tap-to-open">Tap to open</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stage 2: Book Reveal -->
+    <div id="stage-book-reveal" class="stage">
+        <div class="book-reveal-container">
+            <div class="book-cover" aria-label="Click to open book">
+                <div class="book-cover-inner">
+                    <h1 class="book-cover-title">Happy Birthday</h1>
+                    <p class="book-cover-subtitle">Princess</p>
+                    <p class="book-cover-emoji">❤️</p>
+                    <div class="book-cover-decoration"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stage 3: Book Reading Experience -->
+    <div id="stage-book" class="stage">
+        <div class="book-reading-container">
+            <div class="book">
+                <!-- Left page -->
+                <div class="page page--left">
+                    <img class="corner-decoration corner-decoration--left-top" src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" aria-hidden="true" />
+                    <img class="corner-decoration corner-decoration--left-bottom" src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" aria-hidden="true" />
+                    <div class="page__text">
+                        <h2 class="page__title" id="title-left"></h2>
+                        <div id="content-left"></div>
+                    </div>
+                </div>
+
+                <!-- Right page -->
+                <div class="page page--right">
+                    <img class="corner-decoration corner-decoration--right-top" src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" aria-hidden="true" />
+                    <img class="corner-decoration corner-decoration--right-bottom" src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" alt="" aria-hidden="true" />
+                    <div class="page__container">
+                        <div id="content-right"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="book-nav" aria-label="Page navigation">
+                <button class="nav-pill" type="button" id="btn-prev" aria-label="Previous page">← Previous</button>
+                <div class="nav-indicator" id="nav-indicator">Page 1 of 8</div>
+                <button class="nav-pill" type="button" id="btn-next" aria-label="Next page">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

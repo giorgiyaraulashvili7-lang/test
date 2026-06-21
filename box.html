@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style> 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #030000;
+  margin: 25% 0 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+.daz-gift-box {
+  position: relative;
+}
+
+
+.daz-gift-box .gift-box-wrapper {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform-origin: bottom;
+}
+
+.daz-gift-box .gift-box-wrapper .gift-box-top {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  bottom: 95%;
+  left: 0;
+  transform: scale(1.1);
+}
+
+.daz-gift-box .gift-box-wrapper .confetti-target {
+  display: flex;
+  justify-content: center;
+}
+
+  .daz-gift-box .gift-box-wrapper .confetti-target .confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  opacity: 0;
+  animation: explode 3000ms ease-out forwards;
+  animation-delay: 750ms;
+}
+
+  /* Rose petal image burst */
+  .daz-gift-box .gift-box-wrapper .petal-target {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .daz-gift-box .gift-box-wrapper .petal-target .petal {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background-image: url('https://image.ibb.co/kyUHab/rose.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: petalExplode 2600ms ease-out forwards;
+    animation-delay: 750ms;
+    transform-origin: center;
+  }
+
+.daz-gift-box .gift-box-wrapper .gift-box-bottom {
+  width: 100%;
+  height: 100%;
+}
+
+.daz-gift-box.clicked .gift-box-wrapper {
+  animation: squish 1000ms forwards;
+}
+
+.daz-gift-box.clicked .gift-box-top {
+  animation: rotate-top 250ms forwards;
+  animation-delay: 750ms;
+}
+
+@keyframes squish {
+  0% {
+    transform: scaleY(1) translateX(0);
+  }
+
+  3.75% {
+    transform: scale(1.1, 0.9) translateX(-5px);
+  }
+
+  7.5% {
+    transform: scale(1.1, 0.9) translateX(5px);
+  }
+
+  11.25% {
+    transform: scale(1.15, 0.85) translateX(-5px);
+  }
+
+  15% {
+    transform: scale(1.15, 0.85) translateX(5px);
+  }
+
+  18.75% {
+    transform: scale(1.2, 0.8) translateX(-5px);
+  }
+
+  22.5% {
+    transform: scale(1.2, 0.8) translateX(5px);
+  }
+
+  26.25% {
+    transform: scale(1.2, 0.75) translateX(-4px);
+  }
+
+  30% {
+    transform: scale(1.2, 0.75) translateX(4px);
+  }
+
+  33.75% {
+    transform: scale(1.22, 0.7) translateX(-4px);
+  }
+
+  37.5% {
+    transform: scale(1.22, 0.7) translateX(4px);
+  }
+
+  41.25% {
+    transform: scale(1.23, 0.65) translateX(-3px);
+  }
+
+  45% {
+    transform: scale(1.23, 0.65) translateX(3px);
+  }
+
+  48.75% {
+    transform: scale(1.24, 0.6) translateX(-3px);
+  }
+
+  52.5% {
+    transform: scale(1.24, 0.6) translateX(3px);
+  }
+
+  56.25% {
+    transform: scale(1.25, 0.55) translateX(-2px);
+  }
+
+  60% {
+    transform: scale(1.25, 0.55) translateX(2px);
+  }
+
+  63.75% {
+    transform: scale(1.25, 0.52) translateX(-2px);
+  }
+
+  67.5% {
+    transform: scale(1.25, 0.52) translateX(2px);
+  }
+
+  71.25% {
+    transform: scale(1.25, 0.5) translateX(-1px);
+  }
+
+  75% {
+    transform: scale(1.25, 0.5) translateX(0);
+  }
+
+  100% {
+    transform: scaleY(1) translateX(0);
+    border-top: 25px solid #f0f0f0;
+  }
+}
+
+@keyframes rotate-top {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-495deg);
+    bottom: 5%;
+    left: -60%;
+  }
+}
+
+@keyframes explode {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+
+  5% {
+    transform: translate(calc(var(--x) * 100px), calc(var(--y) * -80px)) scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(calc(var(--x) * 150px), calc(var(--y) * 150px)) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes petalExplode {
+  0% {
+    transform: translate(0, 0) scale(0.2) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+    /* Bigger initial scatter */
+    transform: translate(calc(var(--x) * 800px), calc(var(--y) * -1000px)) scale(1.1) rotate(calc(var(--r) * 1deg));
+  }
+  100% {
+    /* Much larger scatter radius so petals cover the screen */
+    transform: translate(calc(var(--x) * 900px), calc(var(--y) * 1100px)) scale(0.55) rotate(calc(var(--r) * 10deg));
+    opacity: 0;
+  }
+}
+
+</style>
+
+</head>
+<body>
+  <div class="daz-gift-box">
+  <div class="center-rose-line" aria-hidden="true"></div>
+  <div class="gift-box-wrapper">
+    <img class="gift-box-top" src="https://cdn.daz3d.com/file/dazcdn/media/sale-promo/advent/box-top.png" alt="">
+    <div class="confetti-target">
+      <img class="gift-box-bottom" src="https://cdn.daz3d.com/file/dazcdn/media/sale-promo/advent/box-bottom.png" alt="">
+    </div>
+    <div class="petal-target" aria-hidden="true"></div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script> 
+    $(".daz-gift-box").on("click", function () {
+  if (!$(this).hasClass("clicked")) {
+    $(this).addClass("clicked");
+  } else {
+    return;
+  }
+
+  explodePetals(event);
+  // After petals finish animating, redirect to test 3/index.html
+  // (petal duration 2600ms + delay 750ms + buffer)
+  setTimeout(() => {
+    window.location.href = "./test 3/index.html";
+  }, 4200);
+});
+
+
+function explodePetals(event) {
+  const petalTarget = event.currentTarget.querySelector(".petal-target");
+  const petalCount = 150;
+  
+  for (let i = 0; i < petalCount; i++) {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.style.setProperty("--x", Math.random() * 2 - 1); // Random x direction (-1 to 1)
+    petal.style.setProperty("--y", Math.random()); // Random y direction (0 to 1)
+    petal.style.setProperty("--r", Math.random() * 360); // Random rotation
+    petalTarget.appendChild(petal);
+
+    // Remove petal after animation ends
+    petal.addEventListener("animationend", () => {
+      petal.remove();
+    });
+  }
+}
+
+</script>
+</body>
+</html>

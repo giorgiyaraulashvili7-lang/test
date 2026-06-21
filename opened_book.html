@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style> 
+        @import url("https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Lusitana:wght@400;700&display=swap");
+
+body {
+  background: radial-gradient(ellipse at 20% 20%, rgba(255,90,120,0.18) 0%, transparent 55%),
+              radial-gradient(ellipse at 80% 70%, rgba(120,0,20,0.28) 0%, transparent 55%),
+              radial-gradient(ellipse at 50% 40%, rgba(70,0,10,0.85) 0%, rgba(10,0,2,1) 70%),
+              linear-gradient(180deg, #140002 0%, #300006 50%, #0c0001 100%);
+
+
+  display: grid;
+
+  place-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+/* soft romantic glow behind the book */
+.book::before {
+  content: "";
+  position: absolute;
+  inset: -30px;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at 50% 30%, rgba(178,34,34,0.28), transparent 60%);
+  filter: blur(10px);
+  z-index: -3;
+}
+
+.book::after {
+  content: ""; 
+  position: absolute; 
+  inset: 0;
+  background-image: url(https://i.pinimg.com/originals/08/60/25/086025d62f7d1794a815e0e7042cae2d.png);
+  background-size: 100%;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  filter: invert(1) opacity(0.22) blur(1px) saturate(1.2);
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  z-index: -2;
+}
+
+.book {
+  position: relative;
+  /* dark wine exterior */
+  background: #3a0812;
+  border: 1px solid rgba(178,34,34,0.42);
+  box-shadow: inset 0 0 20px rgba(178,34,34,0.28), 0 10px 40px rgba(0,0,0,0.55);
+
+  background-image: radial-gradient(ellipse at 20% 10%, rgba(178,34,34,0.12), transparent 55%),
+                    radial-gradient(ellipse at 80% 20%, rgba(224,64,96,0.10), transparent 55%),
+                    radial-gradient(ellipse at 40% 90%, rgba(201,168,76,0.10), transparent 60%),
+                    none;
+  background-size: 200px;
+  height: 500px;
+  width: 800px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: inset 0 0 15px #344533, 2px 5px 15px #0008;
+  isolation: isolate;
+}
+
+.book::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(https://i.pinimg.com/originals/08/60/25/086025d62f7d1794a815e0e7042cae2d.png);
+  background-size: 100%;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  filter: invert(1) opacity(0.2) blur(1px);
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  z-index: -2;
+}
+
+.page {
+  position: relative;
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(180deg, #fff7f0 0%, #faf7f2 45%, #f8efe6 100%);
+  box-shadow: inset 0 0 0 1px rgba(178,34,34,0.08);
+}
+
+.page--left {
+  float: left;
+  box-shadow: inset 60px 0 10px -15px #f3ede4, inset 0 -5px 15px #e7dcc9;
+}
+
+.page--right {
+  float: right;
+  box-shadow: inset -60px 0 10px -15px #ebe3d3, inset 0 -5px 15px #e7dcc9;
+}
+
+.page--left::after,
+.page--right::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 40px;
+  width: 100%;
+  background: inherit;
+  transform: translateY(-70%);
+}
+
+.page--left::after {
+  border-top-right-radius: 30% 100%;
+  border-top-left-radius: 100%;
+  box-shadow: inset 60px 0 10px -15px #f3ede4,
+    inset -5px 15px 13px -10px #e1cfb3;
+}
+
+.page--right::after {
+  border-top-left-radius: 30% 100%;
+  border-top-right-radius: 100%;
+  box-shadow: inset -60px 0 10px -15px #ebe3d3,
+    inset 5px 13px 15px -10px #e1cfb3;
+}
+
+.page--left::before,
+.page--right::before {
+  content: "";
+  position: absolute;
+  height: 100px;
+  width: 100%;
+  bottom: -100px;
+  background: #0008;
+  transform: translateX(3%);
+  filter: blur(15px);
+  box-shadow: 0 0 10px 5px #0004;
+  z-index: -1;
+}
+
+.page--left::before {
+  width: 90%;
+  right: 0;
+  height: 200px;
+  border-radius: 100%;
+  transform: rotate(20deg) translate(4%, -10px);
+}
+
+.page--right::before {
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 10%;
+}
+
+.corner-decoration {
+  position: absolute;
+  height: 100px;
+  aspect-ratio: 1/1;
+  z-index: 5;
+  /* force the corner images to read as darker romantic red */
+  filter: hue-rotate(335deg) saturate(2.8) contrast(1.25) brightness(0.72);
+  mix-blend-mode: multiply;
+
+}
+
+
+.corner-decoration--left-top {
+  top: 55px;
+  left: 90px;
+  transform: matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+.corner-decoration--left-bottom {
+  bottom: -5px;
+  left: 90px;
+  transform: rotate(-90deg)
+    matrix3d(1, 0, 0, 0, 0, 1, 0, -0.001, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+.corner-decoration--right-top {
+  top: 55px;
+  right: -11px;
+  transform: rotate(90deg)
+    matrix3d(1, 0, 0, -0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+
+
+.corner-decoration--right-bottom {
+  bottom: -5px;
+  right: -11px;
+  transform: rotate(180deg)
+    matrix3d(1, 0, 0, 0, 0, 1, 0, -0.001, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+
+.page--left .page__text {
+  inset: 50px 20px 10px 100px;
+}
+
+.page__text {
+  position: absolute;
+  font-family: "Lusitana", serif;
+  font-size: 0.9rem;
+  color: #2a0d0f;
+}
+
+.page__text p {
+  position: relative;
+}
+
+.page__text p::first-letter {
+  color: #b22222;
+  font-size: 1.15em;
+  font-weight: 700;
+}
+
+.page__title {
+  position: relative;
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 0.5em 0 1em 0;
+  z-index: 20;
+  color: #8b1a2a;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.55), 0 0 18px rgba(178,34,34,0.18);
+}
+
+.page__text p {
+  margin: 0;
+  text-indent: 1.5em;
+  line-height: 1.3;
+}
+
+.page--right .page__container {
+  --top: 0px;
+  --right: 65px;
+  --bottom: 10px;
+  --left: 25px;
+
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: var(--top) var(--right) var(--bottom) var(--left);
+  box-sizing: border-box;
+}
+
+.page--right .full-size-image {
+  position: absolute;
+  display: block;
+  z-index: 20;
+  height: calc(100% - var(--top) - var(--bottom));
+  width: calc(100% - var(--right) - var(--left));
+  box-sizing: border-box;
+  object-fit: cover;
+  transform: translateY(-10px);
+  clip-path: polygon(
+    0% 15px,
+    1% 12px,
+    3% 9px,
+    6% 6px,
+    10% 3px,
+    15% 1px,
+    20% 0px,
+    40% 1px,
+    52% 2.5px,
+    60% 3px,
+    71% 5px,
+    86% 9px,
+    95% 12px,
+    99% 14px,
+    100% 18px,
+    100% calc(100% - 3px),
+    99.5% 100%,
+    0.5% calc(100% - 3px),
+    0% calc(100% - 6px)
+  );
+}
+
+.image-credit {
+  position: absolute;
+  z-index: 30;
+  bottom: 20px;
+  right: 80px;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #eeee;
+}
+
+/* right page poem overlay */
+.right-poem {
+  position: absolute;
+  z-index: 35;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.right-poem-text {
+  margin: 0;
+  font-family: "Baskervville", "Times New Roman", serif;
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: rgba(80,10,20,0.92);
+  text-shadow: 0 2px 10px rgba(255,255,255,0.45);
+}
+
+.right-poem-salute {
+  margin: 14px 0 0 0;
+  font-family: "Baskervville", "Times New Roman", serif;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  font-style: italic;
+  color: #8b1a2a;
+  text-shadow: 0 2px 12px rgba(178,34,34,0.18);
+}
+
+.book-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 18px;
+  width: 800px;
+  max-width: calc(100vw - 40px);
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: rgba(20,0,2,0.55);
+  border: 1px solid rgba(178,34,34,0.45);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.45), inset 0 0 20px rgba(178,34,34,0.18);
+  backdrop-filter: blur(8px);
+}
+
+.nav-pill {
+  border: 1px solid rgba(212,175,55,0.45);
+  color: #f0d060;
+  background: linear-gradient(135deg, rgba(139,0,0,0.9), rgba(178,34,34,0.9));
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: "Lusitana", serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 22px rgba(139,0,0,0.35);
+}
+.nav-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(139,0,0,0.5);
+}
+
+.nav-indicator {
+  color: rgba(240,208,96,0.85);
+  font-family: "Lusitana", serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+
+
+/* rose petals falling background */
+body { overflow: hidden; }
+#container{ position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.dot{
+  width:35px;
+  height:35px;
+  position:absolute;
+  background: url(https://image.ibb.co/kyUHab/rose.png);
+  background-size: 100% 100%;
+}
+
+</style>
+        
+</head>
+<body>
+    <!-- Rose petals falling background (from rose_petals_falling.html) -->
+    <div id="container" aria-hidden="true"></div>
+
+    <div class="book">
+    <div class="page page--left">
+    <img class="corner-decoration corner-decoration--left-top" src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+    <img class="corner-decoration corner-decoration--left-bottom" src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+    <div class="page__text">
+      <h2 class="page__title">To You, On Your Special Day</h2>
+      <p>There are moments in life that feel like poetry — quiet, beautiful, and impossible to fully put into words. Today is one of them. As you open this, I want you to know that simply knowing you has made my world warmer, brighter, and more alive.</p>
+      <p>Every year that passes only reveals more of who you truly are — and every layer I discover leaves me more in awe of the person you've become. You deserve every wish, every rose, every golden second of this day.</p>
+      <p>So here is a small world I built just for you. Not grand enough to match you — nothing could be — but made entirely with love.</p>
+      <p><em>With all my heart, always ❤️</em></p>
+    </div>
+  </div>
+  <div class="page page--right">
+    <div class="page__container">
+
+      <img class="corner-decoration corner-decoration--right-top" src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+      <img class="corner-decoration corner-decoration--right-bottom" src="https://i.pinimg.com/originals/54/12/1b/54121bb3986e88023eed4b6b694f838f.png" />
+
+      <div class="right-poem" aria-label="Right side poem">
+        <p class="right-poem-text">May your day be<br>
+          as beautiful as you are,<br>
+          as warm as your smile,<br>
+          as bright as your eyes,<br>
+          and as unforgettable<br>
+          as you are to me.</p>
+        <p class="right-poem-salute">Happy Birthday,<br>
+          Princess. 🌹</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Navigation bar under the book -->
+
+  <!-- GSAP for rose petals falling animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+
+  <div class="book-nav" aria-label="Page navigation">
+    <button class="nav-pill" type="button" onclick="prevPage()">← Previous</button>
+    <div class="nav-indicator" id="nav-indicator">Page 1 of 4</div>
+    <button class="nav-pill" type="button" onclick="nextPage()">Next →</button>
+  </div>
+
+<script>
+  // Simple static navigation behavior for this mock page
+  let navPage = 1;
+  const navTotal = 4;
+  function updateNav() {
+    const el = document.getElementById('nav-indicator');
+    if (el) el.textContent = `Page ${navPage} of ${navTotal}`;
+  }
+  function prevPage() {
+    navPage = Math.max(1, navPage - 1);
+    updateNav();
+  }
+  function nextPage() {
+    navPage = Math.min(navTotal, navPage + 1);
+    updateNav();
+  }
+  updateNav();
+</script>
+
+<script>
+  // Rose petals falling background (from rose_petals_falling.html)
+  TweenLite.set("#container",{perspective:600});
+  TweenLite.set("img",{xPercent:"-50%",yPercent:"-50%"});
+
+  var total = 30;
+  var warp = document.getElementById("container"), w = window.innerWidth, h = window.innerHeight;
+
+  function R(min,max){ return min + Math.random()*(max-min); }
+
+  for (i=0; i<total; i++){
+    var Div = document.createElement('div');
+    TweenLite.set(Div,{attr:{class:'dot'},x:R(0,w),y:R(-200,-150),z:R(-200,200)});
+    warp.appendChild(Div);
+    animm(Div);
+  }
+
+  function animm(elm){
+    TweenMax.to(elm,R(6,15),{y:h+100,ease:Linear.easeNone,repeat:-1,delay:-15});
+    TweenMax.to(elm,R(4,8),{x:'+=100',rotationZ:R(0,180),repeat:-1,yoyo:true,ease:Sine.easeInOut});
+    TweenMax.to(elm,R(2,8),{rotationX:R(0,360),rotationY:R(0,360),repeat:-1,yoyo:true,ease:Sine.easeInOut,delay:-5});
+  }
+</script>
+    
+</body>
+</html>
